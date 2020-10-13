@@ -165,15 +165,15 @@ def updater(C,D,flag=False):
 # 'wget https://sisa.msal.gov.ar/datos/descargas/covid-19/files/Covid19Casos.csv');
 def initialize(opt=False):
   try: 
-    op = pd.read_csv('smaller.csv') 
+    op = pd.read_csv('data/smaller.csv') 
   except FileNotFoundError:
     if not opt:
       print('Apparently this is the first run...')
       print('creating "smaller.csv" database...')
     try: 
-      op = pd.read_csv('Covid19Casos.csv', 
+      op.to_csv('data/smaller.csv',index=False)
+      op = pd.read_csv('data/Covid19Casos.csv', 
           sep=',',encoding='utf-8').sample(frac=1).iloc[:50000,:]   
-      op.to_csv('smaller.csv',index=False)
     except FileNotFoundError:
       print('No tenes la database en el directorio!'\
             '\nla vamos a descargar...')
@@ -234,20 +234,24 @@ def main():
 
 
 
-
-  # Plot en fila:
-  # IZQ la definicion estricta
-  # (confirmado = 1)
-  # DER la definicion laxa
-  # (sospechoso OR confirmado = 1)
-  f,ax = plt.subplots(1,3,
+  if False:
+    # Plot en fila:
+    # IZQ la definicion estricta
+    # (confirmado = 1)
+    # DER la definicion laxa
+    # (sospechoso OR confirmado = 1)
+    f,ax = plt.subplots(1,3,
                     #dpi=200,
                     figsize=(24,22))
-  axmap = {0:0,2:1,1:2}
-  for  j in range(3):
-    plot_from_keys(ax[axmap[j]],
+    axmap = {0:0,2:1,1:2}
+    for  j in range(3):
+      plot_from_keys(ax[axmap[j]],
                     result,j,forward)
-
+  else:
+    f,ax = plt.subplots(1,
+                    #dpi=200,
+                    figsize=(24,22))
+    plot_from_keys(ax,result,2,forward)
   # Agregar "headline amarillista"
   amarillista = yellow_calculator(result,forward)
   plt.figtext(0.5, 0.02, 'TITULO AMARILLISTA: '+amarillista, 
@@ -272,13 +276,16 @@ def plot_from_keys(axy,k,n,cate):
 
   # title is forked 1 vs 2
   if TYPE==1: 
-    title = f'PDF de "proba de contagio"\n'\
+    articulo = {cate[0]:'el',}
+    title = f'Funcion de Densidad de Probabilidad para la "probabilidad de contagio": '\
          f"CASOS POR ''{cate[0]}'': \n''{k['key1'][0][0]}'' Y ''{k['key2'][0][0]}''"\
          f'\n\n   ({labeler[n]})'  
   elif TYPE==2:
-    title = f'PDF de "proba de contagio"\n'\
-         f"SOLO ''{cate[0]}'' IGUAL A ''{k['key1'][0][0]}''\n"\
-         f"CASOS POR ''{cate[1]}'': \n''{k['key1'][0][1]}'' Y ''{k['key2'][0][1]}''"\
+    articulo = {cate[0]:'el',
+              cate[1]:'el'}
+    title = f'Funcion de Densidad de Probabilidad para la "probabilidad de contagio": '\
+         f"Cuando {articulo[cate[0]]}''{cate[0]}'' es igual a ''{k['key1'][0][0]}''\n"\
+         f"CASOS para  {articulo[cate[1]]} ''{cate[1]}'': \n''{k['key1'][0][1]}'' Y ''{k['key2'][0][1]}''"\
          f'\n\n   ({labeler[n]})'  
          
   # Effective plotting
@@ -298,6 +305,7 @@ def plot_from_keys(axy,k,n,cate):
 
 
   return
+
 
 if __name__=='__main__':
   counter = 0
