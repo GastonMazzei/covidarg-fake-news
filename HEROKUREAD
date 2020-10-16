@@ -1,0 +1,42 @@
+heroku create
+git push heroku main
+heroku ps:scale web=1
+heroku open
+heroku logs --tail
+
+#Turn on the clock!
+heroku ps:scale clock=1
+
+
+    Firstly, check if these are present with
+
+    heroku config
+
+    To fix the issue, you can unset them like so:
+
+    heroku config:unset PYTHONHOME -a appname
+
+    heroku config:unset PYTHONPATH -a appname
+
+
+
+
+Gunicorn takes a flag, --chdir, that lets you select which directory your Python app lives in. So, if you have a directory structure like:
+
+my-project/
+  Procfile
+  my_folder/
+    my_module.py
+
+and my_module.py contains:
+
+app = Flask(__name__, ...)
+
+You can put the following in your Procfile:
+
+web: gunicorn --chdir my_folder my_module:app
+
+
+
+
+custom domain here!: https://devcenter.heroku.com/articles/custom-domains
