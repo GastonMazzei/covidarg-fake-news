@@ -8,9 +8,9 @@ sched = BlockingScheduler()
 def timed_job():
   print('RUN!')
   cdir = os.getcwd()
-  os.chdir('app')  
+  #os.chdir('app')  
   main()
-  os.chdir(cdir)
+  #os.chdir(cdir)
   return
 
 
