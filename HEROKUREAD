@@ -1,6 +1,7 @@
 heroku create
 git push heroku main
 heroku ps:scale web=1
+heroku ps:scale clock=1
 heroku open
 heroku logs --tail
 
