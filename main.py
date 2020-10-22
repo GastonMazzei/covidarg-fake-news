@@ -1,5 +1,6 @@
 from flask import Flask
 from flask import render_template
+from engine import *
 #from flask import request
 #from flask import redirect
 #from flask import send_file
@@ -16,6 +17,7 @@ app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 
 @app.route('/')
 def landing():
+  main()
   message = get_message('message.txt')
   title = get_message('title.txt')
   image = get_message('image.txt')

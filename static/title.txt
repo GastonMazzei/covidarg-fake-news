@@ -1,5 +1,4 @@
-Funcion de Densidad de Probabilidad para la "probabilidad de contagio": Cuando el''residencia_departamento_nombre'' es igual a ''Pehuajó''
-CASOS para  el ''fecha_inicio_sintomas'': 
-''2020-08-08'' Y ''nan''
+Funcion de Densidad de Probabilidad para la "probabilidad de contagio": CASOS POR ''carga_provincia_nombre'': 
+''Buenos Aires'' Y ''CABA''
 
    (definición-justa)

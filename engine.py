@@ -284,6 +284,8 @@ def plot_from_keys(axy,k,n,cate):
   labeler = {0: 'definición-estricta',
              1: 'definición-laxa',
              2: 'definición-justa'}
+  # overwrite "definicion justa"
+  labeler[2]=''
   TYPE = len(k['key1'][0])
 
   # title is forked 1 vs 2
