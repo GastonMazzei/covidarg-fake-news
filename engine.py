@@ -273,7 +273,8 @@ def main():
   with open('image.txt','w') as f:
     f.write(new_name)
   for x in os.listdir('static'):
-    if x[-4:]=='.png' and x!=new_name+'.png': os.remove('static/'+x)
+    if x[-4:]=='.png' and x!=new_name+'.png': 
+      is x!='cuidados.png': os.remove('static/'+x)
   # Fin
   return print('ENDED!')
 
