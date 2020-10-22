@@ -1,0 +1,4 @@
+Funcion de Densidad de Probabilidad para la "probabilidad de contagio": CASOS POR ''edad'': 
+''32.0'' Y ''43.0''
+
+   (definición-justa)

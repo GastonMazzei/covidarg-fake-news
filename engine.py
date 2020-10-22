@@ -255,7 +255,9 @@ def main():
     plot_from_keys(ax,result,2,forward)
   # Agregar "headline amarillista"
   amarillista = yellow_calculator(result,forward)
-  plt.figtext(0.5, 0.02, 'TITULO AMARILLISTA: '+amarillista, 
+  if False:
+    #add figtext 
+    plt.figtext(0.5, 0.02, 'TITULO AMARILLISTA: '+amarillista, 
                ha="center", fontsize=12, 
               bbox={"facecolor":"orange",
                     "alpha":0.5, "pad":5})
@@ -263,6 +265,8 @@ def main():
   # Mostrar!
   #plt.tight_layout()
   #plt.show()
+  with open('message.txt','w') as f:
+    f.write(amarillista)
   plt.savefig('static/image.png')
   # Fin
   return print('ENDED!')
@@ -297,11 +301,15 @@ def plot_from_keys(axy,k,n,cate):
           xs,
           a=k[x][2*n+1]+1,
           b=k[x][2*n+2]+1 ),
-      label=' '.join([str(y) for y in k[x][0]]))
-  axy.set_title(title,fontsize=8)
+      label=' '.join([str(y) for y in k[x][0]]),
+          lw=7,ls=':',)
+  axy.grid()
+  with open('title.txt','w') as f:
+    f.write(title)
+  #axy.set_title(title,fontsize=8)
 
   # Visual specs
-  axy.legend(loc=1)
+  axy.legend(loc=1,prop={'size': 34})
   axy.set_xlim(0,1)
 
 
@@ -310,6 +318,11 @@ def plot_from_keys(axy,k,n,cate):
 
 if __name__=='__main__':
   counter = 0
+  import sys
+  if len(sys.argv)==2:
+    main()
+    print('done!')
+    sys.exit(1)
   while True:
     print(f'VUELTA NRO {counter}\nsi tarda mas de 2 segs'\
       ' se ha colgado\ndale reset...\n')
