@@ -169,8 +169,6 @@ def date_to_name(s):
            '09':'Septiembre' ,
            '010':'Octubre' ,
            '011':'Noviembre' ,
-# SE TILDO CON residencia_pais_nombre  and  clasificacion
-# SE TILDO CON carga_provincia_nombre  and  fallecido
            '012':'Diciembre' ,
           }
   y,m,d = s.split('-')
@@ -179,7 +177,7 @@ def date_to_name(s):
 
 def fancy_version(category, value):
   category_mapping = {
-  'carga_provincia_nombre':'el nombre de la provincia en la que que se hizo el test es', #"hizo el test" reemplaza "cargó"
+  'carga_provincia_nombre':'la provincia en la que que se hizo el test es', #"hizo el test" reemplaza "cargó"
   'fecha_inicio_sintomas':'la fecha en la que comenzaron los síntomas es el',
   'fecha_internacion':'la fecha en la que la persona ha sido internada es el',
   'residencia_departamento_nombre':'el departamento de residencia es',
@@ -240,6 +238,10 @@ def filter_version(category, value):
          },
   'edad':{
     nan:False,
+    **{f'{x_}.0':False for x_ in range(90,110)},
+         },
+  'origen_financiamiento':{
+    '*sin dato*':False,
          },
                  }
   if category in filterer:
@@ -300,29 +302,29 @@ def yellow_calculator(k,infor):
     extra = round(abs(ONE-TWO)/ONE*100,1)
   # ONLY INTEGER PROBA!
   extra = int(extra)
+  q=''
   if len(k['key1'][0])==2:
     if extra!=0:
-      msg = f"Cuando {infor[0]} {k['key1'][0][0]}, \n"\
-      f"si {infor[1]} {k[f'key{ind}'][0][1]} \nla probabilidad "\
-        f"de dar positivo es {extra}% mayor que si "\
+      msg = f"Cuando {infor[0]} {k['key1'][0][0]}, {q}"\
+      f"si {infor[1]} {k[f'key{ind}'][0][1]} {q}la probabilidad "\
+        f"de tener coronavirus es {extra}% mayor que si "\
           f"{infor[1]} {k[f'key{ind%2+1}'][0][1]}"
     else:
-      msg = f"Cuando {infor[0]} {k['key1'][0][0]}, \n"\
-      f"si {infor[1]} {k[f'key{ind}'][0][1]} \nla probabilidad de dar "\
-        f"positivo es igual que si {infor[1]} {k[f'key{ind%2+1}'][0][1]}"
+      msg = f"Cuando {infor[0]} {k['key1'][0][0]}, {q}"\
+      f"si {infor[1]} {k[f'key{ind}'][0][1]} {q}la probabilidad de tener "\
+        f"coronavirus es igual que si {infor[1]} {k[f'key{ind%2+1}'][0][1]}"
 
   else:
     if extra!=0:
-      msg =  f"Cuando {infor[0]} {k[f'key{ind}'][0][0]} \nla "\
-            f"probabilidad de dar positivo es {extra}% mayor que si "\
+      msg =  f"Cuando {infor[0]} {k[f'key{ind}'][0][0]}, {q}la "\
+            f"probabilidad de tener coronavirus es {extra}% mayor que si "\
               f"{infor[0]} {k[f'key{ind%2+1}'][0][0]}"
     else:
-      msg =  f"Cuando {infor[0]} {k[f'key{ind}'][0][0]} la "\
-            f"probabilidad de dar positivo es igual que si "\
+      msg =  f"Cuando {infor[0]} {k[f'key{ind}'][0][0]}, la "\
+            f"probabilidad de tener coronavirus es igual que si "\
               f"{infor[0]} {k[f'key{ind%2+1}'][0][0]}"
 
-  return msg
-
+  return msg,ind
 
 def main(**kwargs):
 
@@ -335,6 +337,8 @@ def main(**kwargs):
   #  funcione para N niveles)
 
   TIPO = choice([1,2])
+  limit =10
+  lap = 0 
   if TIPO==1:
     c = colchus(data)
     print('chose column ',c)
@@ -347,6 +351,8 @@ def main(**kwargs):
       if veredict!=2:
         print(f'rejected: it was category {c} and cases '\
              f"{result['key1'][0]} and {result['key2'][0]}")       
+      lap += 1
+      if lap>limit: raise Exception
     forward = (c,)
     fancy_cat, fancy_val1_0 = fancy_version(c, result['key1'][0][0])
     result['key1'] = ([fancy_val1_0,],
@@ -360,9 +366,14 @@ def main(**kwargs):
     c1 = colchus(data)
     c2 = c1
     c2 = updater(c1,data,True)
+    # SE TILDO CON residencia_pais_nombre  and  clasificacion
+    # SE TILDO CON carga_provincia_nombre  and  fallecido
+    # SE TILDO CON residencia_departamento_nombre  and  fallecido
     print('chose columns ',c1,' and ',c2)
     # main TYPE2
     veredict = 0
+    limit =10
+    lap = 0 
     while veredict != 4:
       result = second_type(data,c1,c2)
       veredict = (int(filter_version(c1,result['key1'][0][0])) +
@@ -377,6 +388,8 @@ def main(**kwargs):
       if c1 in ["residencia_departamento_nombre", "residencia_provincia_nombre"]:
         if c2 in ["residencia_departamento_nombre", "residencia_provincia_nombre"]:
           veredict=0
+      lap += 1
+      if lap>limit: raise Exception
     forward = (c1,c2)
     print('ENTERED WITH SHAPE,LEN', len(result['key2']))
     
@@ -395,13 +408,12 @@ def main(**kwargs):
 
   f,ax = plt.subplots(1,
                     #dpi=200,
-                    figsize=(24,22))  
-  title=plot_from_keys(ax,result,forward)
-  amarillista = yellow_calculator(result,forward)
+                    figsize=(21,7))  
+  amarillista,bigger_ind = yellow_calculator(result,forward)
+  title=plot_from_keys(ax,result,forward,bigger_ind)
 
 
-
-
+  new_name = str(uuid4())
   if kwargs.get('clean',True):
     for x in os.listdir('static'):
       if x[-4:]=='.png' and x!=new_name+'.png': 
@@ -422,15 +434,15 @@ def main(**kwargs):
   print('current dir isSS', os.getcwd())
   with open('static/message.txt','w') as f:
     f.write(amarillista)
-  new_name = str(uuid4())
-  plt.savefig(f'static/{new_name}.png')
+                                                   #f5f5f5 <-- light  #363636<--dark
+  plt.savefig(f'static/{new_name}.png', facecolor='#f5f5f5', transparent=True)
   with open('static/image.txt','w') as f:
     f.write(new_name)
 
   # Fin
   return print('ENDED!')
 
-def plot_from_keys(axy,k,cate):
+def plot_from_keys(axy,k,cate, bigger_ind):
   # utils
   xs = linspace(0,1,500)
 
@@ -448,6 +460,8 @@ def plot_from_keys(axy,k,cate):
          f"SI ''{cate[1]} {k['key1'][0][1]}'' \nVS\n SI ''{cate[1]} {k['key2'][0][1]}''"\
          
   # Effective plotting
+  import matplotlib.patheffects as path_effects
+  colorer={f'key{bigger_ind%2+1}':'#d0581c' ,f'key{bigger_ind}':'#98a3a5'}
   for x in k.keys():   
     axy.plot(
       xs,
@@ -455,17 +469,29 @@ def plot_from_keys(axy,k,cate):
           xs,
           a=k[x][-2]+1,
           b=k[x][-1]+1 ),
-      label=' '.join([str(y) for y in k[x][0]]),
-          lw=7,ls=':',)
-  axy.grid()
+      #label=' '.join([str(y) for y in k[x][0]]),
+      label=k[x][0][-1],
+          lw=6,ls='-',c=colorer[x],
+          path_effects=[path_effects.SimpleLineShadow(),
+          path_effects.Normal()])
+  #f5f5f5 <-- light  #363636<--dark
+  #axy.grid(color='#f5f5f5', linestyle='-', linewidth=5)
   with open('static/title.txt','w') as f:
     f.write(title)
+  axy.get_yaxis().set_visible(False)
+  from matplotlib.spines import Spine
+  for child in axy.get_children():
+    if isinstance(child, Spine):
+      child.set_color('#363636')
+      child.set_linewidth(10)
+  axy.tick_params(axis='x', colors='#363636', width=10)
   #axy.set_title(title,fontsize=8)
 
   # Visual specs
-  axy.legend(loc=1,prop={'size': 34})
-  axy.set_xlim(0,1)
-
+  axy.legend(loc=1,prop={'size': 34})#background_color='#f5f5f5'
+  axy.set_xticks([0,0.25,0.5,0.75,1])
+  axy.set_xticklabels(['0','25%','50%','75%','100%'],fontsize=40)
+  #axy.set_xlim(0,1)
 
   return title
 
@@ -480,10 +506,7 @@ if __name__=='__main__':
   while True:
     print(f'VUELTA NRO {counter}\nsi tarda mas de 2 segs'\
       ' se ha colgado\ndale reset...\n')
-    main(clean=False, view=True)
+    main(clean=True, view=False)
     plt.show()
     time.sleep(3)
-    #res = input('x para guardar, any key para continuar..')
-    #if res.lower()=='x':
-    #  plt.savefig(input('pllease input a figName')+'.png')
     counter += 1

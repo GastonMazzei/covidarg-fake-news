@@ -1,0 +1,4 @@
+Funcion de Densidad de Probabilidad para la "probabilidad de contagio":
+SI ''el tipo de lugar en donde se hizo el test es una institución pública'' 
+VS
+ SI ''el tipo de lugar en donde se hizo el test es una institución privada''

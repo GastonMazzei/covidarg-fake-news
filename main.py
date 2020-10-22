@@ -1,13 +1,13 @@
-from flask import Flask
-from flask import render_template
-from engine import *
-#from flask import request
-#from flask import redirect
-#from flask import send_file
-#from flask import send_from_directory
-#from flask import Markup
 import os
 import sys
+import signal
+import time
+
+from flask import Flask
+from flask import render_template
+
+from engine import *
+
 
 app = Flask(__name__,)# template_folder='../templates')
 
@@ -18,7 +18,9 @@ app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 
 @app.route('/')
 def landing():
-  main()
+  try:
+    main(clean=True, view=False)
+  except: pass
   message = get_message('message.txt')
   title = get_message('title.txt')
   image = get_message('image.txt')
@@ -43,4 +45,5 @@ if __name__ == '__main__':
   else:
     port = int(os.environ['PORT'])
     app.run(app.run(host='0.0.0.0', port=port))
+    #app.run(host='0.0.0.0', port=port)
 
