@@ -3,6 +3,7 @@
 import os
 from uuid import uuid4
 import pandas as pd 
+from numpy import nan
 
 from numpy import linspace
 from random import choice
@@ -113,14 +114,14 @@ def fair_diagnostic(d):
 
 # Definimos un selector de columnas
 # capaz de ignorar las que no esten 
-# comentadas      
+# comentadas   
 def colchus(d):
   FORBIDDEN = [
     'id_evento_caso', 
     #'sexo', 
     #'edad',
    'edad_años_meses',
-    #'residencia_pais_nombre',
+    'residencia_pais_nombre',   # este es nuevito lo sacamos jeje
     #'residencia_provincia_nombre', 
     #'residencia_departamento_nombre',
     #'carga_provincia_nombre', 
@@ -130,12 +131,12 @@ def colchus(d):
       #'fecha_internacion',
        'cuidado_intensivo',
        'fecha_cui_intensivo',
-        #'fallecido',
+        #'fallecido',  
         'fecha_fallecimiento',
          'asistencia_respiratoria_mecanica',
          'carga_provincia_id',
           #'origen_financiamiento', 
-         #'clasificacion', 
+         'clasificacion',            #CONSIDERAR VOLVER A PONERLO! 
          'clasificacion_resumen',
           'residencia_provincia_id',
            'fecha_diagnostico',
@@ -144,6 +145,107 @@ def colchus(d):
   answ = choice(d.columns.tolist())
   if answ not in FORBIDDEN: return answ
   else: return colchus(d)
+
+def edad_to_name(s):
+  try:
+    s=int(float(s))
+  except: pass
+  return str(s)+' años'
+
+def comuna_to_name(s):
+  if s in [f"COMUNA {x:02d}" for x in range(1,16)]:
+    return 'la '+s.lower()+' de CABA'
+  return s
+
+def date_to_name(s):
+  months={'01':'Enero' ,
+           '02':'Febrero' ,
+           '03':'Marzo' ,
+           '04':'Abril' ,
+           '05':'Mayo' ,
+           '06':'Junio' ,
+           '07':'Julio' ,
+           '08':'Agosto' ,
+           '09':'Septiembre' ,
+           '010':'Octubre' ,
+           '011':'Noviembre' ,
+# SE TILDO CON residencia_pais_nombre  and  clasificacion
+# SE TILDO CON carga_provincia_nombre  and  fallecido
+           '012':'Diciembre' ,
+          }
+  y,m,d = s.split('-')
+  m = months[m]
+  return f'{int(d)} de {m}'
+
+def fancy_version(category, value):
+  category_mapping = {
+  'carga_provincia_nombre':'el nombre de la provincia en la que que se hizo el test es', #"hizo el test" reemplaza "cargó"
+  'fecha_inicio_sintomas':'la fecha en la que comenzaron los síntomas es el',
+  'fecha_internacion':'la fecha en la que la persona ha sido internada es el',
+  'residencia_departamento_nombre':'el departamento de residencia es',
+  'residencia_provincia_nombre':'la provincia de residencia es',
+  'origen_financiamiento':'el tipo de lugar en donde se hizo el test es',
+  'sexo':'el sexo biológico es',
+  'fallecido':'la persona',
+  'edad':'la persona tiene',
+               }
+  fancy_category = category_mapping.get(category,category)
+
+  value_mapping = {
+  'carga_provincia_nombre':{  
+    'CABA':'Capital Federal',
+                            },
+  'fecha_inicio_sintomas': date_to_name,
+  'fecha_internacion': date_to_name,
+  'residencia_departamento_nombre':comuna_to_name,
+  'origen_financiamiento':{
+    'Privado':'una institución privada',
+    'Público':'una institución pública',
+         },
+  'sexo':{
+    'F':'femenino',
+    'M':'masculino',
+         },
+  'fallecido':{
+    'SI':'ha fallecido',
+    'NO':'no ha fallecido',
+         },
+  'edad':edad_to_name,
+  '':{
+    '':'',
+    '':'',
+         },
+                 }
+  try:
+    print('trying to tidy up the value ',value, 'for category ',category)
+    fancy_value = value_mapping[category][value]
+  except:
+    try: 
+      print('trying one')
+      fancy_value=value_mapping[category](value)
+    except Exception as ins:
+      print(ins.args) 
+      print('surrendering')
+      fancy_value=value
+
+  return fancy_category, fancy_value
+
+def filter_version(category, value):
+  filterer = {
+  'residencia_provincia_nombre':{  
+    'SIN ESPECIFICAR':False,
+                            },
+  'sexo':{
+    'NR':False,
+         },
+  'edad':{
+    nan:False,
+         },
+                 }
+  if category in filterer:
+    veredict = filterer[category].get(value,True)
+  else: veredict=True
+  return veredict
 
 # protected while
 def updater(C,D,flag=False):
@@ -156,6 +258,7 @@ def updater(C,D,flag=False):
     if protector>8: 
       print('ERROR: EXITED LOOP')
       sys.exit(1)
+  print('new its different from C: ',new,C)
   return new
 
 # definimos el inicializador
@@ -185,30 +288,43 @@ def initialize(opt=False):
   return op
 
 def yellow_calculator(k,infor):
-  ONE = (k['key1'][5]+1)/(k['key1'][5]
-                        +k['key1'][6]+2)
-  TWO = (k['key2'][5]+1)/(k['key2'][5]
-                        +k['key2'][6]+2)                        
+  ONE = (k['key1'][-2]+1)/(k['key1'][-2]
+                        +k['key1'][-1]+2)
+  TWO = (k['key2'][-2]+1)/(k['key2'][-2]
+                        +k['key2'][-1]+2)                        
   if ONE>TWO: 
     ind=1
     extra = round(abs(ONE-TWO)/TWO*100,1)
   else: 
     ind=2
     extra = round(abs(ONE-TWO)/ONE*100,1)
+  # ONLY INTEGER PROBA!
+  extra = int(extra)
   if len(k['key1'][0])==2:
-    msg = f"bajo la condicion ''{infor[0]}=={k['key1'][0][0]}'', "\
-      f"el caso ''{infor[1]}=={k[f'key{ind}'][0][1]}'' \ntiene una "\
-        f"proba {extra}0% mayor de dar positivo que el caso "\
-          f"''{infor[1]}=={k[f'key{ind%2+1}'][0][1]}''"
+    if extra!=0:
+      msg = f"Cuando {infor[0]} {k['key1'][0][0]}, \n"\
+      f"si {infor[1]} {k[f'key{ind}'][0][1]} \nla probabilidad "\
+        f"de dar positivo es {extra}% mayor que si "\
+          f"{infor[1]} {k[f'key{ind%2+1}'][0][1]}"
+    else:
+      msg = f"Cuando {infor[0]} {k['key1'][0][0]}, \n"\
+      f"si {infor[1]} {k[f'key{ind}'][0][1]} \nla probabilidad de dar "\
+        f"positivo es igual que si {infor[1]} {k[f'key{ind%2+1}'][0][1]}"
+
   else:
-    msg =  f"el caso ''{infor[0]}=={k[f'key{ind}'][0][0]}'' tiene una "\
-            f"proba \n{extra}0% mayor de dar positivo que el caso "\
-              f"''{infor[0]}=={k[f'key{ind%2+1}'][0][0]}''"
+    if extra!=0:
+      msg =  f"Cuando {infor[0]} {k[f'key{ind}'][0][0]} \nla "\
+            f"probabilidad de dar positivo es {extra}% mayor que si "\
+              f"{infor[0]} {k[f'key{ind%2+1}'][0][0]}"
+    else:
+      msg =  f"Cuando {infor[0]} {k[f'key{ind}'][0][0]} la "\
+            f"probabilidad de dar positivo es igual que si "\
+              f"{infor[0]} {k[f'key{ind%2+1}'][0][0]}"
 
   return msg
 
 
-def main():
+def main(**kwargs):
 
   # Inicializar
   data = initialize()
@@ -217,50 +333,88 @@ def main():
   # 
   # (pend expandir: systematic que
   #  funcione para N niveles)
+
   TIPO = choice([1,2])
   if TIPO==1:
     c = colchus(data)
     print('chose column ',c)
     # main TYPE1
-    result = first_type(data,c)
+    veredict = 0
+    while veredict != 2:
+      result = first_type(data,c)
+      veredict = (int(filter_version(c,result['key1'][0][0])) +
+                 int(filter_version(c,result['key2'][0][0])) )
+      if veredict!=2:
+        print(f'rejected: it was category {c} and cases '\
+             f"{result['key1'][0]} and {result['key2'][0]}")       
     forward = (c,)
+    fancy_cat, fancy_val1_0 = fancy_version(c, result['key1'][0][0])
+    result['key1'] = ([fancy_val1_0,],
+                       result['key1'][-2],result['key1'][-1],)
+    fancy_cat, fancy_val2_0 = fancy_version(c, result['key2'][0][0])
+    result['key2'] = ([fancy_val2_0,],
+                       result['key2'][-2],result['key2'][-1],)
+    forward = (fancy_cat,)
+
   elif TIPO==2:
     c1 = colchus(data)
     c2 = c1
     c2 = updater(c1,data,True)
     print('chose columns ',c1,' and ',c2)
     # main TYPE2
-    result = second_type(data,c1,c2)
+    veredict = 0
+    while veredict != 4:
+      result = second_type(data,c1,c2)
+      veredict = (int(filter_version(c1,result['key1'][0][0])) +
+                 int(filter_version(c1,result['key2'][0][0])) +
+                 int(filter_version(c2,result['key1'][0][1])) +
+                 int(filter_version(c2,result['key2'][0][1])))
+      if veredict!=4:
+        print(f'rejected: they were categories {c1} and {c2} cases '\
+             f"\nfor the first:{result['key1'][0]} and {result['key2'][0]}"\
+             f"\nfor the second:{result['key1'][1]} and {result['key2'][1]}")  
+      # FILTER: c1&c2 cant be "residencia_departamento_nombre" and "residencia_provincia_nombre"
+      if c1 in ["residencia_departamento_nombre", "residencia_provincia_nombre"]:
+        if c2 in ["residencia_departamento_nombre", "residencia_provincia_nombre"]:
+          veredict=0
     forward = (c1,c2)
+    print('ENTERED WITH SHAPE,LEN', len(result['key2']))
+    
+    fancy_cat_1, fancy_val1_0 = fancy_version(c1, result['key1'][0][0])
+    fancy_cat_2, fancy_val1_1 = fancy_version(c2, result['key1'][0][1])
+    result['key1'] = ([fancy_val1_0, fancy_val1_1],
+                       result['key1'][-2],result['key1'][-1],)
+    fancy_cat_1, fancy_val2_0 = fancy_version(c1, result['key2'][0][0])
+    fancy_cat_2, fancy_val2_1 = fancy_version(c2, result['key2'][0][1])
+    result['key2'] = ([fancy_val2_0, fancy_val2_1],
+                       result['key2'][-2],result['key2'][-1],)
 
+    forward = (fancy_cat_1, fancy_cat_2)
+    print('EXITTED WITH SHAPE,LEN', len(result['key2']))
+    #fancy_version(category, value): return fancy_category, fancy_value
 
-
-  if False:
-    # Plot en fila:
-    # IZQ la definicion estricta
-    # (confirmado = 1)
-    # DER la definicion laxa
-    # (sospechoso OR confirmado = 1)
-    f,ax = plt.subplots(1,3,
+  f,ax = plt.subplots(1,
                     #dpi=200,
-                    figsize=(24,22))
-    axmap = {0:0,2:1,1:2}
-    for  j in range(3):
-      plot_from_keys(ax[axmap[j]],
-                    result,j,forward)
-  else:
-    f,ax = plt.subplots(1,
-                    #dpi=200,
-                    figsize=(24,22))
-    plot_from_keys(ax,result,2,forward)
-  # Agregar "headline amarillista"
+                    figsize=(24,22))  
+  title=plot_from_keys(ax,result,forward)
   amarillista = yellow_calculator(result,forward)
-  if False:
+
+
+
+
+  if kwargs.get('clean',True):
+    for x in os.listdir('static'):
+      if x[-4:]=='.png' and x!=new_name+'.png': 
+        if x!='cuidados.png': 
+          os.remove('static/'+x)
+  
+  if kwargs.get('view',False):
     #add figtext 
-    plt.figtext(0.5, 0.02, 'TITULO AMARILLISTA: '+amarillista, 
+    plt.figtext(0.5, 0.02, amarillista, 
                ha="center", fontsize=12, 
               bbox={"facecolor":"orange",
                     "alpha":0.5, "pad":5})
+    plt.title(title,fontsize=8)
 
   # Mostrar!
   #plt.tight_layout()
@@ -272,35 +426,26 @@ def main():
   plt.savefig(f'static/{new_name}.png')
   with open('static/image.txt','w') as f:
     f.write(new_name)
-  for x in os.listdir('static'):
-    if x[-4:]=='.png' and x!=new_name+'.png': 
-      if x!='cuidados.png': os.remove('static/'+x)
+
   # Fin
   return print('ENDED!')
 
-def plot_from_keys(axy,k,n,cate):
+def plot_from_keys(axy,k,cate):
   # utils
-  xs = linspace(0,1,300)
-  labeler = {0: 'definición-estricta',
-             1: 'definición-laxa',
-             2: 'definición-justa'}
-  # overwrite "definicion justa"
-  labeler[2]=''
+  xs = linspace(0,1,500)
+
   TYPE = len(k['key1'][0])
 
   # title is forked 1 vs 2
   if TYPE==1: 
-    articulo = {cate[0]:'el',}
-    title = f'Funcion de Densidad de Probabilidad para la "probabilidad de contagio": '\
-         f"CASOS POR ''{cate[0]}'': \n''{k['key1'][0][0]}'' Y ''{k['key2'][0][0]}''"\
-         f'\n\n   ({labeler[n]})'  
+    title = f'Funcion de Densidad de Probabilidad para la "probabilidad de contagio":\n'\
+         f"SI ''{cate[0]} {k['key1'][0][0]}'' \nVS\n SI ''{cate[0]} {k['key2'][0][0]}''"\
+  
   elif TYPE==2:
-    articulo = {cate[0]:'el',
-              cate[1]:'el'}
-    title = f'Funcion de Densidad de Probabilidad para la "probabilidad de contagio": '\
-         f"Cuando {articulo[cate[0]]}''{cate[0]}'' es igual a ''{k['key1'][0][0]}''\n"\
-         f"CASOS para  {articulo[cate[1]]} ''{cate[1]}'': \n''{k['key1'][0][1]}'' Y ''{k['key2'][0][1]}''"\
-         f'\n\n   ({labeler[n]})'  
+    title = f'Funcion de Densidad de Probabilidad para la "probabilidad de contagio":\n '\
+         f"SI ''{cate[0]} {k['key1'][0][0]}'' para los casos especificos\n"\
+         f"SI ''{cate[1]} {k['key1'][0][1]}'' \nVS\n SI ''{cate[1]} {k['key2'][0][1]}''"\
+         f"SI ''{cate[1]} {k['key1'][0][1]}'' \nVS\n SI ''{cate[1]} {k['key2'][0][1]}''"\
          
   # Effective plotting
   for x in k.keys():   
@@ -308,8 +453,8 @@ def plot_from_keys(axy,k,n,cate):
       xs,
       beta(
           xs,
-          a=k[x][2*n+1]+1,
-          b=k[x][2*n+2]+1 ),
+          a=k[x][-2]+1,
+          b=k[x][-1]+1 ),
       label=' '.join([str(y) for y in k[x][0]]),
           lw=7,ls=':',)
   axy.grid()
@@ -322,7 +467,7 @@ def plot_from_keys(axy,k,n,cate):
   axy.set_xlim(0,1)
 
 
-  return
+  return title
 
 
 if __name__=='__main__':
@@ -335,8 +480,9 @@ if __name__=='__main__':
   while True:
     print(f'VUELTA NRO {counter}\nsi tarda mas de 2 segs'\
       ' se ha colgado\ndale reset...\n')
-    main()
-    time.sleep(5)
+    main(clean=False, view=True)
+    plt.show()
+    time.sleep(3)
     #res = input('x para guardar, any key para continuar..')
     #if res.lower()=='x':
     #  plt.savefig(input('pllease input a figName')+'.png')

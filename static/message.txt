@@ -1,2 +1,2 @@
-el caso ''carga_provincia_nombre==Buenos Aires'' tiene una proba 
-1.30% mayor de dar positivo que el caso ''carga_provincia_nombre==CABA''
+Cuando el sexo biológico es masculino 
+la probabilidad de dar positivo es 7% mayor que si el sexo biológico es femenino

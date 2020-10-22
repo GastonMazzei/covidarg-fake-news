@@ -1,4 +1,4 @@
-Funcion de Densidad de Probabilidad para la "probabilidad de contagio": CASOS POR ''carga_provincia_nombre'': 
-''Buenos Aires'' Y ''CABA''
-
-   (definición-justa)
+Funcion de Densidad de Probabilidad para la "probabilidad de contagio":
+SI ''el sexo biológico es masculino'' 
+VS
+ SI ''el sexo biológico es femenino''

@@ -15,6 +15,7 @@ app = Flask(__name__,)# template_folder='../templates')
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 #https://flask.palletsprojects.com/en/1.1.x/config/#SEND_FILE_MAX_AGE_DEFAULT
 
+
 @app.route('/')
 def landing():
   main()
