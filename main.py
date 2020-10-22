@@ -26,6 +26,7 @@ def landing():
 
 def get_message(name):
   print('current folder is ',os.getcwd())
+  print(os.listdir())
   with open(name,'r') as f:
     text = ''
     for x in f.readlines():

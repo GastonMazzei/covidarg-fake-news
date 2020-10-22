@@ -265,6 +265,7 @@ def main():
   # Mostrar!
   #plt.tight_layout()
   #plt.show()
+  print('current dir isSS', os.getcwd())
   with open('message.txt','w') as f:
     f.write(amarillista)
   new_name = str(uuid4())
