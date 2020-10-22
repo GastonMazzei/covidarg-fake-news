@@ -167,9 +167,9 @@ def date_to_name(s):
            '07':'Julio' ,
            '08':'Agosto' ,
            '09':'Septiembre' ,
-           '010':'Octubre' ,
-           '011':'Noviembre' ,
-           '012':'Diciembre' ,
+           '10':'Octubre' ,
+           '11':'Noviembre' ,
+           '12':'Diciembre' ,
           }
   y,m,d = s.split('-')
   m = months[m]
