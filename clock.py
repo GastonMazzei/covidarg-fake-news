@@ -4,7 +4,7 @@ import os
 
 sched = BlockingScheduler()
 
-@sched.scheduled_job('interval',seconds=40)
+@sched.scheduled_job('interval',seconds=2600)
 def timed_job():
   print('RUN!')
   #cdir = os.getcwd()
