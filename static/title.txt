@@ -1,4 +1,0 @@
-Funcion de Densidad de Probabilidad para la "probabilidad de contagio":
-SI ''el sexo biológico es masculino'' 
-VS
- SI ''el sexo biológico es femenino''
