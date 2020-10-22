@@ -1,2 +1,0 @@
-el caso ''residencia_departamento_nombre==COMUNA 11'' tiene una proba 
-88.20% mayor de dar positivo que el caso ''residencia_departamento_nombre==General Lavalle''

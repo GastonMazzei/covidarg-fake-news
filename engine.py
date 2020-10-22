@@ -266,11 +266,11 @@ def main():
   #plt.tight_layout()
   #plt.show()
   print('current dir isSS', os.getcwd())
-  with open('message.txt','w') as f:
+  with open('static/message.txt','w') as f:
     f.write(amarillista)
   new_name = str(uuid4())
   plt.savefig(f'static/{new_name}.png')
-  with open('image.txt','w') as f:
+  with open('static/image.txt','w') as f:
     f.write(new_name)
   for x in os.listdir('static'):
     if x[-4:]=='.png' and x!=new_name+'.png': 
@@ -311,7 +311,7 @@ def plot_from_keys(axy,k,n,cate):
       label=' '.join([str(y) for y in k[x][0]]),
           lw=7,ls=':',)
   axy.grid()
-  with open('title.txt','w') as f:
+  with open('static/title.txt','w') as f:
     f.write(title)
   #axy.set_title(title,fontsize=8)
 

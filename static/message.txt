@@ -1,0 +1,2 @@
+bajo la condicion ''residencia_departamento_nombre==Pehuajó'', el caso ''fecha_inicio_sintomas==nan'' 
+tiene una proba 21.20% mayor de dar positivo que el caso ''fecha_inicio_sintomas==2020-08-08''

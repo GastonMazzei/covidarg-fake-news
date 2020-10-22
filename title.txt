@@ -1,4 +1,0 @@
-Funcion de Densidad de Probabilidad para la "probabilidad de contagio": CASOS POR ''residencia_departamento_nombre'': 
-''COMUNA 11'' Y ''General Lavalle''
-
-   (definición-justa)
