@@ -1,2 +1,2 @@
-el caso ''edad==32.0'' tiene una proba 
-2.90% mayor de dar positivo que el caso ''edad==43.0''
+el caso ''residencia_departamento_nombre==COMUNA 11'' tiene una proba 
+88.20% mayor de dar positivo que el caso ''residencia_departamento_nombre==General Lavalle''

@@ -10,11 +10,19 @@ import sys
 
 app = Flask(__name__,)# template_folder='../templates')
 
+# The no-cache policy
+app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
+#https://flask.palletsprojects.com/en/1.1.x/config/#SEND_FILE_MAX_AGE_DEFAULT
+
 @app.route('/')
 def landing():
   message = get_message('message.txt')
   title = get_message('title.txt')
-  return render_template('index.html', fake_news=message, upper_desc=title)
+  image = get_message('image.txt')
+  return render_template('index.html',
+                            fake_news=message,
+                            upper_desc=title, 
+                            image=image,)
 
 def get_message(name):
   print('current folder is ',os.getcwd())

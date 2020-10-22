@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 import os
-
+from uuid import uuid4
 import pandas as pd 
 
 from numpy import linspace
@@ -267,7 +267,12 @@ def main():
   #plt.show()
   with open('message.txt','w') as f:
     f.write(amarillista)
-  plt.savefig('static/image.png')
+  new_name = str(uuid4())
+  plt.savefig(f'static/{new_name}.png')
+  with open('image.txt','w') as f:
+    f.write(new_name)
+  for x in os.listdir('static'):
+    if x[-4:]=='.png' and x!=new_name+'.png': os.remove('static/'+x)
   # Fin
   return print('ENDED!')
 
