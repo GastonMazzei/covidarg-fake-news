@@ -1,1 +1,1 @@
-Cuando el tipo de lugar en donde se hizo el test es una institución pública, la probabilidad de tener coronavirus es 2% mayor que si el tipo de lugar en donde se hizo el test es una institución privada
+Si la persona ha fallecido, la probabilidad de tener coronavirus es 91% mayor que si la persona no ha fallecido

@@ -9,6 +9,7 @@ from numpy import linspace
 from random import choice
 from matplotlib import pyplot as plt
 from scipy.stats import beta as b
+from textwrap import wrap
 import time
 beta = b.pdf
 
@@ -50,18 +51,17 @@ beta = b.pdf
 def first_type(d,cat):
   local_info = {}
   vals = d[cat].unique().tolist()
+  if len(vals)<2: 
+    print('vals are ',vals)
+    raise Exception  
   A = choice(vals)
   B = updater(A,vals)
   local_info['key1'] = (
                   [A],
-                  *hard_diagnostic(d[d[cat]==A]),
-                  *soft_diagnostic(d[d[cat]==A]),
                   *fair_diagnostic(d[d[cat]==A]),
                                                  )
   local_info['key2'] = (
                   [B],
-                  *hard_diagnostic(d[d[cat]==B]),
-                  *soft_diagnostic(d[d[cat]==B]),
                   *fair_diagnostic(d[d[cat]==B]),
                                                  )  
   return local_info
@@ -75,35 +75,38 @@ def second_type(d,cat1,cat2):
   local_info = {}
   Z = choice(d[cat1].unique().tolist())
   vals = d[d[cat1]==Z][cat2].unique().tolist()
+  if len(vals)<2: raise Exception
   A = choice(vals)
   B = updater(A,vals)
   local_info['key1'] = (
                   [Z,A],
-                  *hard_diagnostic(d[d[cat2]==A]),
-                  *soft_diagnostic(d[d[cat2]==A]),
                   *fair_diagnostic(d[d[cat2]==A]),
                                                  )
   local_info['key2'] = (
                   [Z,B],
-                  *hard_diagnostic(d[d[cat2]==B]),
-                  *soft_diagnostic(d[d[cat2]==B]),
                   *fair_diagnostic(d[d[cat2]==B]),
                                                  )  
   return  local_info
 
-# Definimos un `diagnostico duro`
-# como ignorar sospechosos
-def hard_diagnostic(d):
-  L = d.size
-  aux_2 = len(d[d['clasificacion_resumen'] == 'Descartado']) 
-  return (L-aux_2, aux_2)
-
-# Definimos un `diagnostico blando`
-# como confirmar sospechosos
-def soft_diagnostic(d):
-  L = d.size
-  aux_1 = len(d[d['clasificacion_resumen'] == 'Confirmado'])
-  return (aux_1, L-aux_1)
+def third_type(d,cat1,cat2,cat3):
+  local_info = {}
+  Z_1 = choice(d[cat1].unique().tolist())
+  Z_2 = choice(d[cat2].unique().tolist())
+  vals = d[((d[cat1]==Z_1) & (d[cat2]==Z_2))][cat3].unique().tolist()
+  if len(vals)<2: 
+    print('vals are ',vals)
+    raise Exception  
+  A = choice(vals)
+  B = updater(A,vals)
+  local_info['key1'] = (
+                  [Z_1,Z_2,A],
+                  *fair_diagnostic(d[d[cat2]==A]),
+                                                 )
+  local_info['key2'] = (
+                  [Z_1,Z_2,B],
+                  *fair_diagnostic(d[d[cat2]==B]),
+                                                 )  
+  return local_info
 
 # Definimos un `diagonistoc justo`
 # como confirmado o descartado
@@ -229,6 +232,7 @@ def fancy_version(category, value):
   return fancy_category, fancy_value
 
 def filter_version(category, value):
+  print('checking filter for ',category,value)
   filterer = {
   'residencia_provincia_nombre':{  
     'SIN ESPECIFICAR':False,
@@ -243,6 +247,10 @@ def filter_version(category, value):
   'origen_financiamiento':{
     '*sin dato*':False,
          },
+  'fecha_internacion': {nan:False
+         },
+  'fecha_internacion': {nan:False
+         },
                  }
   if category in filterer:
     veredict = filterer[category].get(value,True)
@@ -252,8 +260,12 @@ def filter_version(category, value):
 # protected while
 def updater(C,D,flag=False):
   protector = 0
-  new = C
-  while new==C:
+  if isinstance(C,int):
+    new=C
+    C = (C,)
+  else:
+    new=C[0]
+  while new in C:
     if flag: new = colchus(D)
     else: new = choice(D)
     protector ++ 1
@@ -314,7 +326,7 @@ def yellow_calculator(k,infor):
       f"si {infor[1]} {k[f'key{ind}'][0][1]} {q}la probabilidad de tener "\
         f"coronavirus es igual que si {infor[1]} {k[f'key{ind%2+1}'][0][1]}"
 
-  else:
+  elif len(k['key1'][0])==1:
     if extra!=0:
       msg =  f"Si {infor[0]} {k[f'key{ind}'][0][0]}, {q}la "\
             f"probabilidad de tener coronavirus es {extra}% mayor que si "\
@@ -323,6 +335,17 @@ def yellow_calculator(k,infor):
       msg =  f"Si {infor[0]} {k[f'key{ind}'][0][0]}, la "\
             f"probabilidad de tener coronavirus es igual que si "\
               f"{infor[0]} {k[f'key{ind%2+1}'][0][0]}"
+
+  elif len(k['key1'][0])==3:
+    if extra!=0:
+      msg = f"Cuando {infor[0]} {k['key1'][0][0]}, {q}"\
+      f"si {infor[1]} {k[f'key{ind}'][0][1]} {q}la probabilidad "\
+        f"de tener coronavirus es {extra}% mayor que si "\
+          f"{infor[1]} {k[f'key{ind%2+1}'][0][1]}"
+    else:
+      msg = f"Cuando {infor[0]} {k['key1'][0][0]} y {infor[1]} {k['key1'][0][1]},{q}"\
+      f"si {infor[2]} {k[f'key{ind}'][0][2]} {q}la probabilidad de tener "\
+        f"coronavirus es igual que si {infor[2]} {k[f'key{ind%2+1}'][0][2]}"
 
   return msg,ind
 
@@ -336,7 +359,7 @@ def main(**kwargs):
   # (pend expandir: systematic que
   #  funcione para N niveles)
 
-  TIPO = choice([1,2])
+  TIPO = choice([1,1,2,2,2])
   limit =10
   lap = 0 
   if TIPO==1:
@@ -406,9 +429,61 @@ def main(**kwargs):
     print('EXITTED WITH SHAPE,LEN', len(result['key2']))
     #fancy_version(category, value): return fancy_category, fancy_value
 
+  elif TIPO==3:
+    c1 = colchus(data)
+    c2 = c1
+    c2 = updater(c1,data,True)
+    c3 = updater((c1,c2),data,True) 
+    print('chose columns ',c1,', ',c2,' and ',c3)
+    # main TYPE2
+    veredict = 0
+    limit =10
+    lap = 0 
+    while veredict != 6:
+      result = third_type(data,c1,c2,c3)
+      veredict = (int(filter_version(c1,result['key1'][0][0])) +
+                 int(filter_version(c1,result['key2'][0][0])) +
+                 int(filter_version(c2,result['key1'][0][1])) +
+                 int(filter_version(c1,result['key2'][0][1])) +
+                 int(filter_version(c2,result['key1'][0][2])) +
+                 int(filter_version(c2,result['key2'][0][2])))
+      if veredict!=6:
+        print(f'rejected: they were categories {c1} and {c2} cases '\
+             f"\nfor the first:{result['key1'][0]} and {result['key2'][0]}"\
+             f"\nfor the second:{result['key1'][1]} and {result['key2'][1]}"\
+             f"\nfor the third:{result['key1'][2]} and {result['key2'][2]}")  
+      if c1 in ["residencia_departamento_nombre", "residencia_provincia_nombre"]:
+        if c2 in ["residencia_departamento_nombre", "residencia_provincia_nombre"]:
+          veredict=0
+        elif c3 in ["residencia_departamento_nombre", "residencia_provincia_nombre"]:
+          veredict=0
+      elif c2 in ["residencia_departamento_nombre", "residencia_provincia_nombre"]:
+        if c3 in ["residencia_departamento_nombre", "residencia_provincia_nombre"]:
+          veredict=0   
+      lap += 1
+      if lap>limit: raise Exception
+    forward = (c1,c2,c3)
+    print('ENTERED WITH SHAPE,LEN', len(result['key2']))
+    
+    fancy_cat_1, fancy_val1_0 = fancy_version(c1, result['key1'][0][0])
+    fancy_cat_2, fancy_val1_1 = fancy_version(c2, result['key1'][0][1])
+    fancy_cat_3, fancy_val1_2 = fancy_version(c3, result['key1'][0][2])
+    result['key1'] = ([fancy_val1_0, fancy_val1_1, fancy_val1_2],
+                       result['key1'][-2],result['key1'][-1],)
+    fancy_cat_1, fancy_val2_0 = fancy_version(c1, result['key2'][0][0])
+    fancy_cat_2, fancy_val2_1 = fancy_version(c2, result['key2'][0][1])
+    fancy_cat_3, fancy_val2_2 = fancy_version(c3, result['key2'][0][2])
+    result['key2'] = ([fancy_val2_0, fancy_val2_1, fancy_val2_2],
+                       result['key2'][-2],result['key2'][-1],)
+
+    forward = (fancy_cat_1, fancy_cat_2, fancy_cat_3)
+    print('EXITTED WITH SHAPE,LEN', len(result['key2']))
+    #fancy_version(category, value): return fancy_category, fancy_value
+
+
   f,ax = plt.subplots(1,
                     #dpi=200,
-                    figsize=(21,7))  
+                    figsize=(21,7))
   amarillista,bigger_ind = yellow_calculator(result,forward)
   title=plot_from_keys(ax,result,forward,bigger_ind)
 
@@ -417,7 +492,7 @@ def main(**kwargs):
   if kwargs.get('clean',True):
     for x in os.listdir('static'):
       if x[-4:]=='.png' and x!=new_name+'.png': 
-        if x!='cuidados.png': 
+        if x!='cuidados.png' and x!='cuidadosB.png': 
           os.remove('static/'+x)
   
   if kwargs.get('view',False):
@@ -435,7 +510,7 @@ def main(**kwargs):
   with open('static/message.txt','w') as f:
     f.write(amarillista)
                                                    #f5f5f5 <-- light  #363636<--dark
-  plt.savefig(f'static/{new_name}.png', facecolor='#f5f5f5', transparent=True)
+  plt.savefig(f'static/{new_name}.png', facecolor='#f5f5f5', transparent=True,bbox_inches='tight')
   with open('static/image.txt','w') as f:
     f.write(new_name)
 
@@ -447,7 +522,8 @@ def plot_from_keys(axy,k,cate, bigger_ind):
   xs = linspace(0,1,500)
 
   TYPE = len(k['key1'][0])
-
+  
+  
   # title is forked 1 vs 2
   if TYPE==1: 
     title = f'Funcion de Densidad de Probabilidad para la "probabilidad de contagio":\n'\
@@ -457,7 +533,13 @@ def plot_from_keys(axy,k,cate, bigger_ind):
     title = f'Funcion de Densidad de Probabilidad para la "probabilidad de contagio":\n '\
          f"SI ''{cate[0]} {k['key1'][0][0]}'' para los casos especificos\n"\
          f"SI ''{cate[1]} {k['key1'][0][1]}'' \nVS\n SI ''{cate[1]} {k['key2'][0][1]}''"\
-         f"SI ''{cate[1]} {k['key1'][0][1]}'' \nVS\n SI ''{cate[1]} {k['key2'][0][1]}''"\
+         f"SI ''{cate[1]} {k['key1'][0][1]}'' \nVS\n SI ''{cate[1]} {k['key2'][0][1]}''"
+  elif TYPE==3:
+    title = f'Funcion de Densidad de Probabilidad para la "probabilidad de contagio":\n '\
+         f"SI ''{cate[0]} {k['key1'][0][0]}'' y también \n"\
+         f"SI ''{cate[1]} {k['key1'][0][1]}'' para los casos especificos\n"\
+         f"SI ''{cate[2]} {k['key1'][0][2]}'' \nVS\n SI ''{cate[1]} {k['key2'][0][2]}''"\
+         f"SI ''{cate[2]} {k['key1'][0][2]}'' \nVS\n SI ''{cate[1]} {k['key2'][0][2]}''"
          
   # Effective plotting
   import matplotlib.patheffects as path_effects
@@ -474,6 +556,7 @@ def plot_from_keys(axy,k,cate, bigger_ind):
           lw=6,ls='-',c=colorer[x],
           path_effects=[path_effects.SimpleLineShadow(),
           path_effects.Normal()])
+
   #f5f5f5 <-- light  #363636<--dark
   #axy.grid(color='#f5f5f5', linestyle='-', linewidth=5)
   with open('static/title.txt','w') as f:
@@ -488,9 +571,21 @@ def plot_from_keys(axy,k,cate, bigger_ind):
   #axy.set_title(title,fontsize=8)
 
   # Visual specs
-  axy.legend(loc=1,prop={'size': 34})#background_color='#f5f5f5'
+  if TYPE==1:                      #34
+    axy.legend(loc=1,title='\n'.join(wrap(cate[0],33)).capitalize(),
+                  title_fontsize=18,fontsize=17,prop={'size': 17})#background_color='#f5f5f5'
+  elif TYPE==2:
+    axy.legend(loc=1,title='\n'.join(wrap(cate[0]+' '+k['key1'][0][0]+' y '+cate[1],33)).capitalize(),fontsize=17,
+                  title_fontsize=17,prop={'size': 17,})#background_color='#f5f5f5'
+  elif TYPE==3:
+    axy.legend(loc=1,
+           title='\n'.join(wrap(cate[0]+' '+k['key1'][0][0]+
+                                ', '+cate[1]+' '+k['key1'][0][1]+
+                                 ' y '+cate[2],33)).capitalize(),
+                                     fontsize=17,
+                  title_fontsize=17,prop={'size': 17,})#background_color='#f5f5f5'
   axy.set_xticks([0,0.25,0.5,0.75,1])
-  axy.set_xticklabels(['0','25%','50%','75%','100%'],fontsize=40)
+  axy.set_xticklabels(['0','25%','50%','75%','100%'],fontsize=30)
   #axy.set_xlim(0,1)
 
   return title

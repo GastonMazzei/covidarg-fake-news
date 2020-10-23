@@ -10,7 +10,7 @@
        function Redirect() {  window.location="/"; }  
        setTimeout('Redirect()', 80000);   
     </script>-->
-  <style>
+  <!--<style>
     figure {
       border: 6px transparent solid;
       padding: 4px;
@@ -23,7 +23,44 @@
       padding: 2px;
       text-align: center;
     }
-  </style>
+  </style>-->
+<style>
+.tooltip {
+    position: relative;
+    display: inline-block;
+    /*border-bottom: 1px dotted black;*/
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    /*width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    top: 150%;
+    left: 50%;
+    margin-left: -60px;*/
+}
+
+.tooltip .tooltiptext::after {
+    content: "";
+    /*position: absolute;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent black transparent;*/
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}
+</style>
 </head>
 
 <body>
@@ -50,18 +87,22 @@
           <h2 class="subtitle is-size-4">
             generador infinito de noticias falsas a partir de los <a href="https://sisa.msal.gov.ar/sisa/">datos del gobierno</a>
           </h2>
+          <p class="has-text-centered has-text-centered-mobile is-size-4 is-size-4-mobile">
+           Si actualizás la página se recalcula</p>
         </div>
       </div>
     </section>
     <section class="hero is-light">
       <div class="hero-body">
-        <div class="container">
-          <!--<p class="is-small">
-           <b>{{upper_desc}}</b>
-          </p>-->
+        <div class="container is-fluid">
+            
+          <p class="has-text-centered has-text-centered-mobile is-size-4 is-size-4-mobile">
+            Densidad de probabilidad de la probabilidad de tener coronavirus
+	  </p>
 
+           
           <figure class= "image is-3by1">
-            <img src="static/{{image}}.png" alt="Grafico cientifico"> 
+            <img src="static/{{image}}.png"> 
           </figure>
 
         </div>
@@ -88,9 +129,7 @@
     <section class="hero is-white">
       <div class="hero-body">
         <div class="container">
-        <!-- Para las siguientes imagenes, quizas es una buena idea cambiarles el fondo blanco 
-             por el fondo color "crema" que es "hsl(0, 0%, 21%)" segun CSS-Bulma "is-light" -->  
-        <figure class= "">
+        <figure class= "image is-3by1">
           <img src="static/cuidados.png" alt="Como prevenir el coronavirus">
         </div>
       </div>
