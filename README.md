@@ -28,7 +28,7 @@ A partir de los [Datos]() Públicos del Gobierno Argentino :v: :argentina: :gori
 
 <br>
 <b>¿Cómo se calcula el patrón?</b><br>
-Hipótesis: tener o no la enfermedad se puede modelar como un [ensayo de Bernoulli](https://es.wikipedia.org/wiki/Ensayo_de_Bernoulli).<br>
+Hipótesis: tener o no la enfermedad se puede modelar como un [ensayo de Bernoulli](http://es.wikipedia.org/wiki/Ensayo_de_Bernoulli).<br>
 <img src="https://render.githubusercontent.com/render/math?math=Probabilidad(enfermo)=\mu">
 <img src="https://render.githubusercontent.com/render/math?math=Probabilidad(sano)=1-\mu">
 Suponiendo que dentro de cada grupo social las personas son independientes se puede modelar la [base de datos estatal](https://sisa.msal.gov.ar/sisa/) como generada por un [proceso de Bernoulli](https://es.wikipedia.org/wiki/Proceso_de_Bernoulli). La conclusión es que la probabilidad de que una fracción de gente tenga coronavirus se modela con la [función de probabilidad de Bernoulli](https://en.wikipedia.org/wiki/Binomial_distribution), i.e.<br>
