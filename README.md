@@ -1,9 +1,21 @@
+<img width=80, height=80, src="readme-static.png">
 
-<b>SPANISH</b>
-Hola, bienvenid@s al repo "covidarg-headline-generator". 
+(es):es:<br>
+<b>Explicación</b><br>
+Hola, bienvenid@s al repositorio asociado a la página ["covidarg-fake-news"](https://covidarg-fake-news.herokuapp.com/).<br>
+La intención es triple:
+* concientizar sobre las fake news
+* recordar los cuidados generales
+* difundir el analisis estadistico
+<br>
 <br><br>
-<i>Explicación</i>
-A partir de los <a link="https://sisa.msal.gov.ar/datos/descargas/covid-19/files/Covid19Casos.csv>Datos Públicos</a> del Gobierno Argentino sobre Coronavirus 
+<i>Más info</i><br>
+A partir de los [Datos Públicos](https://sisa.msal.gov.ar/datos/descargas/covid-19/files/Covid19Casos.csv) del Gobierno Argentino :v: :argentina: :gorilla: sobre Coronavirus se puede computar la probabilidad de tener la enfermedad para distintos grupos sociales.  
+
+<br>
+* Concientizar sobre las "<i>Fake News</i>" (noticias falsas). Cuando los resultados son matemáticamente correctos, una alternativa a creer en la conclusión es cuestionar las hipótesis. Dada la (alta) velocidad con la que ocurren las interacciones virtuales es posible perder ésto de vista y construir razonamientos mal cimientados.   
+* 
+* Difundir el análisis estadístico en general y en particular agradecer a quien corresponda por la puesta en marcha de una base de datos pública. La expectativa general es que la "<i>transferencia tecnológica</i>" va a mejorar la calidad de vida de todos los ciudadanos; es en tal marco que se observa: la puesta en marcha de una base de datos pública es un excelente ejemplo de las acciones necesarias para llevar a la sociedad hacia ese "<i>futuro mejor</i>". 
 
 _____________E_X_P_L_I_C_A_C_I_O_N___________________________________.
                                                                      |
