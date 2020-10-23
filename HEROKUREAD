@@ -4,6 +4,9 @@ heroku ps:scale web=1
 heroku open
 heroku logs --tail
 
+changed name!
+heroku apps:rename covidarg-fake-news
+
 #Add clock to the Procfile!
 clock: python clock.py
 

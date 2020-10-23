@@ -316,11 +316,11 @@ def yellow_calculator(k,infor):
 
   else:
     if extra!=0:
-      msg =  f"Cuando {infor[0]} {k[f'key{ind}'][0][0]}, {q}la "\
+      msg =  f"Si {infor[0]} {k[f'key{ind}'][0][0]}, {q}la "\
             f"probabilidad de tener coronavirus es {extra}% mayor que si "\
               f"{infor[0]} {k[f'key{ind%2+1}'][0][0]}"
     else:
-      msg =  f"Cuando {infor[0]} {k[f'key{ind}'][0][0]}, la "\
+      msg =  f"Si {infor[0]} {k[f'key{ind}'][0][0]}, la "\
             f"probabilidad de tener coronavirus es igual que si "\
               f"{infor[0]} {k[f'key{ind%2+1}'][0][0]}"
 
