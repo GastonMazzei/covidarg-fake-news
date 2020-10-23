@@ -1,20 +1,40 @@
 <img width=80, height=80, src="readme-static.png">
 
 (es):es:<br>
-Hola, bienvenid@s al repositorio asociado a la página web ["covidarg-fake-news"](https://covidarg-fake-news.herokuapp.com/).<br>
-La intención es triple:
+Hola, bienvenidos al repositorio asociado a la página web ["covidarg-fake-news"](https://covidarg-fake-news.herokuapp.com/).<br>
+
+<p align="center">
+<br>
+<b>Motivación</b>
+<br>
 * concientizar sobre las fake news
 * recordar los cuidados generales
 * difundir el analisis estadistico
 <br>
-<i>info</i><br>
-A partir de los [Datos Públicos](https://sisa.msal.gov.ar/sisa/) del Gobierno Argentino :v: :argentina: :gorilla: sobre Coronavirus se puede computar la probabilidad de tener la enfermedad para distintos grupos sociales usando un modelo matemático muy sencillo (ver final del texto). 
+</p>
+
+<p align="center">
 <br>
+<b>Explicación</b>
 <br>
-<b>Más info:</b> <i>desarrollando las tres motivaciones</i><br>
-* Concientizar sobre las "<i>Fake News</i>" (noticias falsas). Cuando los resultados son matemáticamente correctos, una alternativa a creer en la conclusión es cuestionar las hipótesis. Dada la (alta) velocidad con la que ocurren las interacciones virtuales es posible perder ésto de vista y construir razonamientos mal cimientados.   
-* 
-* Difundir el análisis estadístico en general y en particular agradecer a quien corresponda por la puesta en marcha de una base de datos pública. La expectativa general es que la "<i>transferencia tecnológica</i>" va a mejorar la calidad de vida de todos los ciudadanos; es en tal marco que se observa: la puesta en marcha de una base de datos pública es un excelente ejemplo de las acciones necesarias para llevar a la sociedad hacia ese "<i>futuro mejor</i>". 
+A partir de los [Datos Públicos](https://sisa.msal.gov.ar/sisa/) del Gobierno Argentino :v: :argentina: :gorilla: sobre Coronavirus se puede computar la probabilidad de tener la enfermedad para distintos grupos sociales usando un modelo matemático muy sencillo. 
+<br>
+</p>
+
+<p align="center">
+<br>
+ <b>Detalles:</b> <i>expandimos sobre los tres items</i>
+<br>
+* concientizar sobre las fake news
+> Cuando los resultados son matemáticamente correctos, una alternativa a creer en la conclusión es cuestionar las hipótesis. Dada la (alta) velocidad con la que ocurren las interacciones virtuales es posible perder ésto de vista y construir razonamientos mal cimientados.   
+* recordar los cuidados generales
+> Argentina actualmente (Fines de Octubre 2020) tiene un máximo histórico en la cantidad de casos. Si bien la larga cuarentena generó entre otras cosas cansancio y aburrimiento es el tiempo presente (en un promedio geográfico) el momento en donde las precauciones individuales deben extremarse o en todo caso no relajarse.  
+* difundir el analisis estadistico
+> La expectativa general es que la "<i>transferencia tecnológica</i>" va a mejorar la calidad de vida de todos los ciudadanos; es en tal marco que se observa: la puesta en marcha de una base de datos pública es un excelente ejemplo de las acciones necesarias para llevar a la sociedad hacia ese "<i>futuro mejor</i>". 
+<br>
+</p>
+
+<br><br><br>
 
 
  2. La lista de hipótesis:                                           |
