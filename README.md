@@ -1,63 +1,58 @@
 (es):es:<br>
-<b>Hola, bienvenidos al repositorio asociado a la página web ["covidarg-fake-news"](https://covidarg-fake-news.herokuapp.com/).</b>
+<b>Hola, bienvenidos al repositorio asociado a la página web ["covidarg-fake-news"](https://covidarg-fake-news.herokuapp.com/) </b><br>
+<i>Cada vez que se recarga la página, se muestra al azar un patrón estadístico de la base de datos del gobierno</i><br>
 <img width=500, height=270, src="readme-static.png">
 <br>
-<p align="center">
-<b>Motivación</b></p>
+<p>
+<b>¿Cuál es la misión de la página?</b></p>
 
-* concientizar sobre las fake news
+1) concientizar sobre las fake news
 
-* recordar los cuidados generales
+2) recordar los cuidados generales
 
-* difundir el analisis estadistico
+3) difundir el analisis estadistico
 <br>
 
 
-<p align="center">
-<b>Explicación</b></p>
-A partir de los [Datos Públicos](https://sisa.msal.gov.ar/sisa/) del Gobierno Argentino :v: :argentina: :gorilla: sobre Coronavirus se puede computar la probabilidad de tener la enfermedad para distintos grupos sociales usando un modelo matemático muy sencillo. 
+<p>
+<b>¿Cómo funciona?</b></p>
+A partir de los [Datos Públicos](https://sisa.msal.gov.ar/sisa/) del Gobierno Argentino :v: :argentina: :gorilla: sobre Coronavirus se puede computar la probabilidad de tener la enfermedad para distintos grupos sociales usando un modelo matemático muy sencillo. Cada vez que se carga la página, se muestra un patrón matemático calculado sobre dos categorías al azar y se enuncia la conclusión "en un tono amarillista".  
 <br>
 
 
-<p align="center">
+<p>
 <br>
- <b>Detalles:</b> <i>expandimos sobre los tres items</i></p>
+<b>¿Cómo se fundamenta la misión?</b></p>
 <br>
 
-* concientizar sobre las fake news
+1) concientizar sobre las fake news
 
-> Cuando los resultados son matemáticamente correctos, una alternativa a creer en la conclusión es cuestionar las hipótesis. Dada la (alta) velocidad con la que ocurren las interacciones virtuales es posible perder ésto de vista y construir razonamientos mal cimientados.   
+> Cuando los resultados son matemáticamente correctos, una alternativa a creer en la conclusión es cuestionar las hipótesis. Dada la (alta) velocidad con la que ocurren las interacciones virtuales hoy en día, es posible perder ésto de vista y construir razonamientos mal cimientados.   
 
-* recordar los cuidados generales
+2) recordar los cuidados generales
 
 > Argentina actualmente (Fines de Octubre 2020) tiene un máximo histórico en la cantidad de casos. Si bien la larga cuarentena generó entre otras cosas cansancio y aburrimiento es el tiempo presente (en un promedio geográfico) el momento en donde las precauciones individuales deben extremarse o en todo caso no relajarse.  
 
-* difundir el analisis estadistico
+3) difundir el analisis estadistico
 
 > La expectativa general es que la "<i>transferencia tecnológica</i>" va a mejorar la calidad de vida de todos los ciudadanos; es en tal marco que se observa: la puesta en marcha de una base de datos pública es un excelente ejemplo de las acciones necesarias para llevar a la sociedad hacia ese "<i>futuro mejor</i>". 
 <br>
 
 
 <br><br><br>
-<i>Modelo matemático</i>
+<b>¿Cómo se calcula el patrón?</b><br>
 Hipótesis: tener o no la enfermedad se puede modelar como un [ensayo de Bernoulli](https://es.wikipedia.org/wiki/Ensayo_de_Bernoulli).<br>
-$P$
-<br> Suponiendo que dentro de cada grupo social las personas son independientes se puede modelar la [base de datos estatal](https://sisa.msal.gov.ar/sisa/) como generada por un [proceso de Bernoulli](https://es.wikipedia.org/wiki/Proceso_de_Bernoulli).<br>
-En el marco estadístico Bayesiano 
+<img src="https://render.githubusercontent.com/render/math?math=P(+)=\mu"><br>
+<img src="https://render.githubusercontent.com/render/math?math=P(-)=1-\mu">
+<br> Suponiendo que dentro de cada grupo social las personas son independientes se puede modelar la [base de datos estatal](https://sisa.msal.gov.ar/sisa/) como generada por un [proceso de Bernoulli](https://es.wikipedia.org/wiki/Proceso_de_Bernoulli). La conclusión es que la probabilidad de que una fracción de gente tenga coronavirus se modela con la [función de probabilidad de Bernoulli](https://en.wikipedia.org/wiki/Binomial_distribution), i.e.<br>
+<img src="https://render.githubusercontent.com/render/math?math=PMF(N_{sanos},N_{enfermos})=\binom{N_{sanos}+N_{enfermos}}{N_{enfermos}}\mu^{N_{enfermos}}(1-\mu)^{N_{sanos}}">
+<br>
+Finalmente, usando el [paradigma estadístico bayesiano](https://es.wikipedia.org/wiki/Teorema_de_Bayes) y suponiendo que la probabilidad de tener coronavirus es completamente desconocida se obtiene una densidad de probabilidad para la probabilidad de tener coronavirus, cuya forma funcional es una [Distribución Beta](https://es.wikipedia.org/wiki/Distribuci%C3%B3n_beta), i.e.<br>
+<img src="https://render.githubusercontent.com/render/math?math=Beta(\mu)\approx\frac{\Gamma(N_{sanos}+N_{enfermos})}{\Gamma(N_{enfermos})\Gamma(N_{sanos})}\mu^{N_{enfermos}}(1-\mu)^{N_{sanos}}"><br><br>
+<b>Lo que hace la página es, cada vez que es cargada, seleccionar al azar dos grupos sociales y comparar sus probabilidades de tener coronavirus usando el pico de la distribución.</b>
 
- 2. La lista de hipótesis:                                           |
-    (2.A) - modelar positivo-negativo con Bernouilli                 |   
-    (2.B) - modelar prior uniforme                                   |
-    (2.C) - suponer que en la beta tenemos casos                     |
-            "suficientemente simetricos" como para                   |
-            decir Xmax=Xmean y usamos que:                           |
-              Xmean = alpha / (alpha + beta)                         |
-            (esto podria cambiarse en el codigo...)                  |
+<b>¿Qué hace que sean "Fake News"?</b>
 
-_____________________________________________________________________| 
-DISCLAIMER Y FILOSOFIA: Es un 'juego' con forma de burla. O una burla|
-con forma de juego. En ningún caso apunta a alentar la creación y/o  |
-distribución de FAKE-NEWS en torno a algo grave como el Coronavirus. |
-En Argentina, si creen que tienen síntomas deben llamar al 107.      |
-Más info: https://www.argentina.gob.ar/salud/coronavirus-COVID-19    |
-_____________________________________________________._______________|
+* El modelo es demasiado simplista pues no tiene en cuenta otros efectos; e.g. ver [Ferguson](https://www.imperial.ac.uk/mrc-global-infectious-disease-analysis/covid-19/report-13-europe-npi-impact/). 
+
+* La reciente polémica desatada por el comunicado de Oxford en donde se cuestiona la calidad de los datos de la base [1](https://www.infobae.com/tendencias/2020/10/22/el-sitio-estadistico-de-la-universidad-de-oxford-explico-los-motivos-por-los-que-saco-a-la-argentina-de-su-mapa-de-datos/) [2](https://www.cronista.com/economiapolitica/Por-que-razon-Argentina-fue-excluida-de-las-estadisticas-mundiales-sobre-coronavirus-20201021-0041.html) hace foco en algo evidente: los casos negativos no están siendo reportados. Eso hace que la tasa de positivos parezca más alta de lo que verdaderamente es y en particular la diferencia geográfica no permite ser correctamente contemplada. 
