@@ -1,8 +1,7 @@
-<img width=80, height=80, src="readme-static.png">
-
 (es):es:<br>
-Hola, bienvenidos al repositorio asociado a la página web ["covidarg-fake-news"](https://covidarg-fake-news.herokuapp.com/).
-
+<b>Hola, bienvenidos al repositorio asociado a la página web ["covidarg-fake-news"](https://covidarg-fake-news.herokuapp.com/).</b>
+<img width=500, height=270, src="readme-static.png">
+<br>
 <p align="center">
 <b>Motivación</b></p>
 
