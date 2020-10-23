@@ -7,9 +7,8 @@ La intención es triple:
 * recordar los cuidados generales
 * difundir el analisis estadistico
 <br>
-<br><br>
 <i>info</i><br>
-A partir de los [Datos Públicos](https://sisa.msal.gov.ar/datos/descargas/covid-19/files/Covid19Casos.csv) del Gobierno Argentino :v: :argentina: :gorilla: sobre Coronavirus se puede computar la probabilidad de tener la enfermedad para distintos grupos sociales usando un modelo matemático muy sencillo (ver final del texto). 
+A partir de los [Datos Públicos](https://sisa.msal.gov.ar/sisa/) del Gobierno Argentino :v: :argentina: :gorilla: sobre Coronavirus se puede computar la probabilidad de tener la enfermedad para distintos grupos sociales usando un modelo matemático muy sencillo (ver final del texto). 
 <br>
 <br>
 <b>Más info:</b> <i>desarrollando las tres motivaciones</i><br>
