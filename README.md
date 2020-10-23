@@ -28,7 +28,7 @@ A partir de los [Datos]() Públicos del Gobierno Argentino :v: :argentina: :gori
 
 <br>
 <b>¿Cómo se calcula el patrón?</b><br>
-Hipótesis: tener o no la enfermedad se puede modelar como un [ensayo de Bernoulli](https://es.wikipedia.org/wiki/Ensayo_de_Bernoulli).
+Hipótesis: tener o no la enfermedad se puede modelar como un [ensayo de Bernoulli](https://es.wikipedia.org/wiki/Ensayo_de_Bernoulli).<br>
 <img src="https://render.githubusercontent.com/render/math?math=Probabilidad(enfermo)=\mu">
 <img src="https://render.githubusercontent.com/render/math?math=Probabilidad(sano)=1-\mu">
 Suponiendo que dentro de cada grupo social las personas son independientes se puede modelar la [base de datos estatal](https://sisa.msal.gov.ar/sisa/) como generada por un [proceso de Bernoulli](https://es.wikipedia.org/wiki/Proceso_de_Bernoulli). La conclusión es que la probabilidad de que una fracción de gente tenga coronavirus se modela con la [función de probabilidad de Bernoulli](https://en.wikipedia.org/wiki/Binomial_distribution), i.e.<br>
@@ -37,7 +37,6 @@ Finalmente, usando el [paradigma estadístico bayesiano](https://es.wikipedia.or
 <img src="https://render.githubusercontent.com/render/math?math=Beta(\mu)\approx\frac{\Gamma(N_{sanos}+N_{enfermos})}{\Gamma(N_{enfermos})\Gamma(N_{sanos})}\mu^{N_{enfermos}}(1-\mu)^{N_{sanos}}">
 Lo que hace la página es, cada vez que es cargada, seleccionar al azar dos grupos sociales y comparar sus probabilidades de tener coronavirus usando el pico de la distribución.
 
-<br>
-<b>¿Qué hace que sean "Fake News"?</b>
+<b><br>¿Qué hace que sean "Fake News"?</b>
 * El modelo es demasiado simplista pues no tiene en cuenta otros efectos; e.g. ver [Ferguson](https://www.imperial.ac.uk/mrc-global-infectious-disease-analysis/covid-19/report-13-europe-npi-impact/). 
 * La reciente polémica desatada por el comunicado de Oxford en donde se cuestiona la calidad de los datos de la base [1](https://www.infobae.com/tendencias/2020/10/22/el-sitio-estadistico-de-la-universidad-de-oxford-explico-los-motivos-por-los-que-saco-a-la-argentina-de-su-mapa-de-datos/) [2](https://www.cronista.com/economiapolitica/Por-que-razon-Argentina-fue-excluida-de-las-estadisticas-mundiales-sobre-coronavirus-20201021-0041.html) hace foco en algo evidente: los casos negativos no están siendo reportados. Eso hace que la tasa de positivos parezca más alta de lo que verdaderamente es y en particular la diferencia geográfica no permite ser correctamente contemplada. 
