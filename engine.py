@@ -359,7 +359,7 @@ def main(**kwargs):
   # (pend expandir: systematic que
   #  funcione para N niveles)
 
-  TIPO = choice([1,1,2,2,2])
+  TIPO = choice([1]*2+[2]*8)
   limit =10
   lap = 0 
   if TIPO==1:

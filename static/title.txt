@@ -1,4 +1,7 @@
 Funcion de Densidad de Probabilidad para la "probabilidad de contagio":
-SI ''la persona no ha fallecido'' 
+ SI ''la fecha en la que comenzaron los síntomas es el 6 de Junio'' para los casos especificos
+SI ''la persona ha fallecido'' 
 VS
- SI ''la persona ha fallecido''
+ SI ''la persona no ha fallecido''SI ''la persona ha fallecido'' 
+VS
+ SI ''la persona no ha fallecido''
