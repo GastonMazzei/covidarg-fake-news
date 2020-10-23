@@ -40,7 +40,11 @@ A partir de los [Datos Públicos](https://sisa.msal.gov.ar/sisa/) del Gobierno A
 
 
 <br><br><br>
-
+<i>Modelo matemático</i>
+Hipótesis: tener o no la enfermedad se puede modelar como un [ensayo de Bernoulli](https://es.wikipedia.org/wiki/Ensayo_de_Bernoulli).<br>
+$P$
+<br> Suponiendo que dentro de cada grupo social las personas son independientes se puede modelar la [base de datos estatal](https://sisa.msal.gov.ar/sisa/) como generada por un [proceso de Bernoulli](https://es.wikipedia.org/wiki/Proceso_de_Bernoulli).<br>
+En el marco estadístico Bayesiano 
 
  2. La lista de hipótesis:                                           |
     (2.A) - modelar positivo-negativo con Bernouilli                 |   
