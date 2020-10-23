@@ -1,12 +1,10 @@
 <img width=80, height=80, src="readme-static.png">
 
 (es):es:<br>
-Hola, bienvenidos al repositorio asociado a la página web ["covidarg-fake-news"](https://covidarg-fake-news.herokuapp.com/).<br>
+Hola, bienvenidos al repositorio asociado a la página web ["covidarg-fake-news"](https://covidarg-fake-news.herokuapp.com/).
 
 <p align="center">
-<br>
 <b>Motivación</b></p>
-<br>
 
 * concientizar sobre las fake news
 
@@ -17,9 +15,7 @@ Hola, bienvenidos al repositorio asociado a la página web ["covidarg-fake-news"
 
 
 <p align="center">
-<br>
 <b>Explicación</b></p>
-<br>
 A partir de los [Datos Públicos](https://sisa.msal.gov.ar/sisa/) del Gobierno Argentino :v: :argentina: :gorilla: sobre Coronavirus se puede computar la probabilidad de tener la enfermedad para distintos grupos sociales usando un modelo matemático muy sencillo. 
 <br>
 
