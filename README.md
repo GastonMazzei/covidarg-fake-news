@@ -37,10 +37,8 @@ A partir de los [Datos]() Públicos del Gobierno Argentino :v: :argentina: :gori
 3) difundir el analisis estadistico
 
 > La expectativa general es que la "<i>transferencia tecnológica</i>" va a mejorar la calidad de vida de todos los ciudadanos; es en tal marco que se observa: la puesta en marcha de una base de datos pública es un excelente ejemplo de las acciones necesarias para llevar a la sociedad hacia ese "<i>futuro mejor</i>". 
+
 <br>
-
-
-<br><br><br>
 <b>¿Cómo se calcula el patrón?</b><br>
 Hipótesis: tener o no la enfermedad se puede modelar como un [ensayo de Bernoulli](https://es.wikipedia.org/wiki/Ensayo_de_Bernoulli).<br>
 <img src="https://render.githubusercontent.com/render/math?math=P(+)=\mu"><br>
@@ -49,9 +47,10 @@ Hipótesis: tener o no la enfermedad se puede modelar como un [ensayo de Bernoul
 <img src="https://render.githubusercontent.com/render/math?math=PMF(N_{sanos},N_{enfermos})=\binom{N_{sanos}+N_{enfermos}}{N_{enfermos}}\mu^{N_{enfermos}}(1-\mu)^{N_{sanos}}">
 <br>
 Finalmente, usando el [paradigma estadístico bayesiano](https://es.wikipedia.org/wiki/Teorema_de_Bayes) y suponiendo que la probabilidad de tener coronavirus es completamente desconocida se obtiene una densidad de probabilidad para la probabilidad de tener coronavirus, cuya forma funcional es una [Distribución Beta](https://es.wikipedia.org/wiki/Distribuci%C3%B3n_beta), i.e.<br>
-<img src="https://render.githubusercontent.com/render/math?math=Beta(\mu)\approx\frac{\Gamma(N_{sanos}+N_{enfermos})}{\Gamma(N_{enfermos})\Gamma(N_{sanos})}\mu^{N_{enfermos}}(1-\mu)^{N_{sanos}}"><br><br>
-<b>Lo que hace la página es, cada vez que es cargada, seleccionar al azar dos grupos sociales y comparar sus probabilidades de tener coronavirus usando el pico de la distribución.</b>
+<img src="https://render.githubusercontent.com/render/math?math=Beta(\mu)\approx\frac{\Gamma(N_{sanos}+N_{enfermos})}{\Gamma(N_{enfermos})\Gamma(N_{sanos})}\mu^{N_{enfermos}}(1-\mu)^{N_{sanos}}"><br>
+Lo que hace la página es, cada vez que es cargada, seleccionar al azar dos grupos sociales y comparar sus probabilidades de tener coronavirus usando el pico de la distribución.
 
+<br>
 <b>¿Qué hace que sean "Fake News"?</b>
 
 * El modelo es demasiado simplista pues no tiene en cuenta otros efectos; e.g. ver [Ferguson](https://www.imperial.ac.uk/mrc-global-infectious-disease-analysis/covid-19/report-13-europe-npi-impact/). 
