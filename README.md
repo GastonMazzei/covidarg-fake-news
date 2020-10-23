@@ -12,7 +12,7 @@
 
 <p>
 <b>¿Cómo funciona?</b></p>
-A partir de los [Datos]() Públicos del Gobierno Argentino :v: :argentina: :gorilla: sobre Coronavirus se puede computar la probabilidad de tener la enfermedad para distintos grupos sociales usando un modelo matemático muy sencillo. Cada vez que se carga la página, se muestra un patrón matemático calculado sobre dos categorías al azar y se enuncia la conclusión "en un tono amarillista".  
+A partir de los Datos Públicos del Gobierno Argentino :v: :argentina: :gorilla: sobre Coronavirus se puede computar la probabilidad de tener la enfermedad para distintos grupos sociales usando un modelo matemático muy sencillo. Cada vez que se carga la página, se muestra un patrón matemático calculado sobre dos categorías al azar y se enuncia la conclusión "en un tono amarillista".  
 
 <p>
 <br>
