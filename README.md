@@ -5,25 +5,25 @@ Hola, bienvenidos al repositorio asociado a la página web ["covidarg-fake-news"
 
 <p align="center">
 <br>
-<b>Motivación</b>
+<b>Motivación</b></p>
 <br>
 * concientizar sobre las fake news
 * recordar los cuidados generales
 * difundir el analisis estadistico
 <br>
-</p>
+
 
 <p align="center">
 <br>
-<b>Explicación</b>
+<b>Explicación</b></p>
 <br>
 A partir de los [Datos Públicos](https://sisa.msal.gov.ar/sisa/) del Gobierno Argentino :v: :argentina: :gorilla: sobre Coronavirus se puede computar la probabilidad de tener la enfermedad para distintos grupos sociales usando un modelo matemático muy sencillo. 
 <br>
-</p>
+
 
 <p align="center">
 <br>
- <b>Detalles:</b> <i>expandimos sobre los tres items</i>
+ <b>Detalles:</b> <i>expandimos sobre los tres items</i></p>
 <br>
 * concientizar sobre las fake news
 > Cuando los resultados son matemáticamente correctos, una alternativa a creer en la conclusión es cuestionar las hipótesis. Dada la (alta) velocidad con la que ocurren las interacciones virtuales es posible perder ésto de vista y construir razonamientos mal cimientados.   
@@ -32,7 +32,7 @@ A partir de los [Datos Públicos](https://sisa.msal.gov.ar/sisa/) del Gobierno A
 * difundir el analisis estadistico
 > La expectativa general es que la "<i>transferencia tecnológica</i>" va a mejorar la calidad de vida de todos los ciudadanos; es en tal marco que se observa: la puesta en marcha de una base de datos pública es un excelente ejemplo de las acciones necesarias para llevar a la sociedad hacia ese "<i>futuro mejor</i>". 
 <br>
-</p>
+
 
 <br><br><br>
 
