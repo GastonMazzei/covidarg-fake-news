@@ -8,9 +8,7 @@
 <b>¿Cuál es la misión de la página?</b></p>
 
 1) concientizar sobre las fake news
-
 2) recordar los cuidados generales
-
 3) difundir el analisis estadistico
 
 <p>
@@ -22,15 +20,10 @@ A partir de los [Datos]() Públicos del Gobierno Argentino :v: :argentina: :gori
 <b>¿Cómo se fundamenta la misión?</b></p>
 
 1) concientizar sobre las fake news
-
 > Cuando los resultados son matemáticamente correctos, una alternativa a creer en la conclusión es cuestionar las hipótesis. Dada la (alta) velocidad con la que ocurren las interacciones virtuales hoy en día, es posible perder ésto de vista y construir razonamientos mal cimientados.   
-
 2) recordar los cuidados generales
-
 > Argentina actualmente (Fines de Octubre 2020) tiene un máximo histórico en la cantidad de casos. Si bien la larga cuarentena generó entre otras cosas cansancio y aburrimiento es el tiempo presente (en un promedio geográfico) el momento en donde las precauciones individuales deben extremarse o en todo caso no relajarse.  
-
 3) difundir el analisis estadistico
-
 > La expectativa general es que la "<i>transferencia tecnológica</i>" va a mejorar la calidad de vida de todos los ciudadanos; es en tal marco que se observa: la puesta en marcha de una base de datos pública es un excelente ejemplo de las acciones necesarias para llevar a la sociedad hacia ese "<i>futuro mejor</i>". 
 
 <br>
@@ -38,15 +31,13 @@ A partir de los [Datos]() Públicos del Gobierno Argentino :v: :argentina: :gori
 Hipótesis: tener o no la enfermedad se puede modelar como un [ensayo de Bernoulli](https://es.wikipedia.org/wiki/Ensayo_de_Bernoulli).
 <img src="https://render.githubusercontent.com/render/math?math=Probabilidad(enfermo)=\mu">
 <img src="https://render.githubusercontent.com/render/math?math=Probabilidad(sano)=1-\mu">
-<br> Suponiendo que dentro de cada grupo social las personas son independientes se puede modelar la [base de datos estatal](https://sisa.msal.gov.ar/sisa/) como generada por un [proceso de Bernoulli](https://es.wikipedia.org/wiki/Proceso_de_Bernoulli). La conclusión es que la probabilidad de que una fracción de gente tenga coronavirus se modela con la [función de probabilidad de Bernoulli](https://en.wikipedia.org/wiki/Binomial_distribution), i.e.
+Suponiendo que dentro de cada grupo social las personas son independientes se puede modelar la [base de datos estatal](https://sisa.msal.gov.ar/sisa/) como generada por un [proceso de Bernoulli](https://es.wikipedia.org/wiki/Proceso_de_Bernoulli). La conclusión es que la probabilidad de que una fracción de gente tenga coronavirus se modela con la [función de probabilidad de Bernoulli](https://en.wikipedia.org/wiki/Binomial_distribution), i.e.
 <img src="https://render.githubusercontent.com/render/math?math=PMF(N_{sanos},N_{enfermos})=\binom{N_{sanos}+N_{enfermos}}{N_{enfermos}}\mu^{N_{enfermos}}(1-\mu)^{N_{sanos}}">
 Finalmente, usando el [paradigma estadístico bayesiano](https://es.wikipedia.org/wiki/Teorema_de_Bayes) y suponiendo que la probabilidad de tener coronavirus es completamente desconocida se obtiene una densidad de probabilidad para la probabilidad de tener coronavirus, cuya forma funcional es una [Distribución Beta](https://es.wikipedia.org/wiki/Distribuci%C3%B3n_beta), i.e.
 <img src="https://render.githubusercontent.com/render/math?math=Beta(\mu)\approx\frac{\Gamma(N_{sanos}+N_{enfermos})}{\Gamma(N_{enfermos})\Gamma(N_{sanos})}\mu^{N_{enfermos}}(1-\mu)^{N_{sanos}}">
 Lo que hace la página es, cada vez que es cargada, seleccionar al azar dos grupos sociales y comparar sus probabilidades de tener coronavirus usando el pico de la distribución.
 
-<br><br>
+<br>
 <b>¿Qué hace que sean "Fake News"?</b>
-
 * El modelo es demasiado simplista pues no tiene en cuenta otros efectos; e.g. ver [Ferguson](https://www.imperial.ac.uk/mrc-global-infectious-disease-analysis/covid-19/report-13-europe-npi-impact/). 
-
 * La reciente polémica desatada por el comunicado de Oxford en donde se cuestiona la calidad de los datos de la base [1](https://www.infobae.com/tendencias/2020/10/22/el-sitio-estadistico-de-la-universidad-de-oxford-explico-los-motivos-por-los-que-saco-a-la-argentina-de-su-mapa-de-datos/) [2](https://www.cronista.com/economiapolitica/Por-que-razon-Argentina-fue-excluida-de-las-estadisticas-mundiales-sobre-coronavirus-20201021-0041.html) hace foco en algo evidente: los casos negativos no están siendo reportados. Eso hace que la tasa de positivos parezca más alta de lo que verdaderamente es y en particular la diferencia geográfica no permite ser correctamente contemplada. 
