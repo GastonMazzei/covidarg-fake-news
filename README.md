@@ -1,7 +1,8 @@
 (es):es:<br>
 <b>Hola, bienvenidos al repositorio asociado a la página web ["covidarg-fake-news"](https://covidarg-fake-news.herokuapp.com/) </b><br>
 <i>Cada vez que se recarga la página, se muestra al azar un patrón estadístico de la base de datos del gobierno</i><br>
-<img width=500, height=270, src="readme-static.png">
+<i>Datos Públicos: https://sisa.msal.gov.ar</i><br>
+<img width=750, height=415, src="readme-static.png">
 <br>
 <p>
 <b>¿Cuál es la misión de la página?</b></p>
@@ -16,7 +17,7 @@
 
 <p>
 <b>¿Cómo funciona?</b></p>
-A partir de los [Datos](https://sisa.msal.gov.ar) Públicos del Gobierno Argentino :v: :argentina: :gorilla: sobre Coronavirus se puede computar la probabilidad de tener la enfermedad para distintos grupos sociales usando un modelo matemático muy sencillo. Cada vez que se carga la página, se muestra un patrón matemático calculado sobre dos categorías al azar y se enuncia la conclusión "en un tono amarillista".  
+A partir de los [Datos]() Públicos del Gobierno Argentino :v: :argentina: :gorilla: sobre Coronavirus se puede computar la probabilidad de tener la enfermedad para distintos grupos sociales usando un modelo matemático muy sencillo. Cada vez que se carga la página, se muestra un patrón matemático calculado sobre dos categorías al azar y se enuncia la conclusión "en un tono amarillista".  
 <br>
 
 
