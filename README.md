@@ -40,9 +40,8 @@ Hipótesis: tener o no la enfermedad se puede modelar como un [ensayo de Bernoul
 <img src="https://render.githubusercontent.com/render/math?math=P(-)=1-\mu">
 <br> Suponiendo que dentro de cada grupo social las personas son independientes se puede modelar la [base de datos estatal](https://sisa.msal.gov.ar/sisa/) como generada por un [proceso de Bernoulli](https://es.wikipedia.org/wiki/Proceso_de_Bernoulli). La conclusión es que la probabilidad de que una fracción de gente tenga coronavirus se modela con la [función de probabilidad de Bernoulli](https://en.wikipedia.org/wiki/Binomial_distribution), i.e.<br>
 <img src="https://render.githubusercontent.com/render/math?math=PMF(N_{sanos},N_{enfermos})=\binom{N_{sanos}+N_{enfermos}}{N_{enfermos}}\mu^{N_{enfermos}}(1-\mu)^{N_{sanos}}">
-<br>
 Finalmente, usando el [paradigma estadístico bayesiano](https://es.wikipedia.org/wiki/Teorema_de_Bayes) y suponiendo que la probabilidad de tener coronavirus es completamente desconocida se obtiene una densidad de probabilidad para la probabilidad de tener coronavirus, cuya forma funcional es una [Distribución Beta](https://es.wikipedia.org/wiki/Distribuci%C3%B3n_beta), i.e.<br>
-<img src="https://render.githubusercontent.com/render/math?math=Beta(\mu)\approx\frac{\Gamma(N_{sanos}+N_{enfermos})}{\Gamma(N_{enfermos})\Gamma(N_{sanos})}\mu^{N_{enfermos}}(1-\mu)^{N_{sanos}}"><br>
+<img src="https://render.githubusercontent.com/render/math?math=Beta(\mu)\approx\frac{\Gamma(N_{sanos}+N_{enfermos})}{\Gamma(N_{enfermos})\Gamma(N_{sanos})}\mu^{N_{enfermos}}(1-\mu)^{N_{sanos}}">
 Lo que hace la página es, cada vez que es cargada, seleccionar al azar dos grupos sociales y comparar sus probabilidades de tener coronavirus usando el pico de la distribución.
 
 <br>
