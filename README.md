@@ -38,7 +38,7 @@ Lo que hace la página es, cada vez que es cargada, seleccionar al azar dos grup
 
 <b><br>¿Qué hace que sean "Fake News"?</b>
 * El modelo es demasiado simplista pues no tiene en cuenta otros efectos; e.g. ver [Ferguson](https://www.imperial.ac.uk/mrc-global-infectious-disease-analysis/covid-19/report-13-europe-npi-impact/). 
-* La reciente polémica desatada por el comunicado de Oxford en donde se cuestiona la calidad de los datos de la base [1](https://www.infobae.com/tendencias/2020/10/22/el-sitio-estadistico-de-la-universidad-de-oxford-explico-los-motivos-por-los-que-saco-a-la-argentina-de-su-mapa-de-datos/) [2](https://www.cronista.com/economiapolitica/Por-que-razon-Argentina-fue-excluida-de-las-estadisticas-mundiales-sobre-coronavirus-20201021-0041.html) hace foco en algo evidente: los casos negativos no están siendo reportados. Eso hace que la tasa de positivos parezca más alta de lo que verdaderamente es y en particular la diferencia geográfica no permite ser correctamente contemplada. 
+* La reciente polémica desatada por el comunicado de Oxford en donde se cuestiona la calidad de los datos de la base ([1](https://www.infobae.com/tendencias/2020/10/22/el-sitio-estadistico-de-la-universidad-de-oxford-explico-los-motivos-por-los-que-saco-a-la-argentina-de-su-mapa-de-datos/)) ([2](https://www.cronista.com/economiapolitica/Por-que-razon-Argentina-fue-excluida-de-las-estadisticas-mundiales-sobre-coronavirus-20201021-0041.html)) hace foco en algo evidente: los casos negativos no están siendo reportados. Eso hace que la tasa de positivos parezca más alta de lo que verdaderamente es y en particular la diferencia geográfica no permite ser correctamente contemplada. 
 
 <br><br>
 <i>Datos Públicos: https://sisa.msal.gov.ar</i><br>
