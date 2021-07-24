@@ -1,0 +1,7 @@
+Funcion de Densidad de Probabilidad para la "probabilidad de contagio":
+ SI ''la fecha en la que comenzaron los síntomas es el 23 de Abril'' para los casos especificos
+SI ''el departamento de residencia es Bolívar'' 
+VS
+ SI ''el departamento de residencia es San Fernando''SI ''el departamento de residencia es Bolívar'' 
+VS
+ SI ''el departamento de residencia es San Fernando''

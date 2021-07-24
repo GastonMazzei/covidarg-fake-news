@@ -1,0 +1,31 @@
+version: '2'
+
+services:
+  flask2covidarg:
+    image: webapp-flask-3
+    build:
+      context: ./app-covidarg
+      dockerfile: Dockerfile
+    ports:
+      - "5002:5002"
+    volumes:
+      - "./app-covidarg:/app-covidarg"
+    environment:
+      - APP_NAME=flask2
+  nginx:
+    image: webapp-nginx
+    build:
+      context: .
+      dockerfile: Dockerfile-nginx
+    ports:
+      - "81:81"
+      - "443:443"
+      - "82:82"
+      - "83:83"
+      - "84:84"
+    volumes:
+      - "./app.conf:/etc/nginx/conf.d/app.conf"
+    depends_on:
+      - flask2covidarg
+volumes:
+    uploads:

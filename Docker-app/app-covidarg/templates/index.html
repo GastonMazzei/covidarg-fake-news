@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--<meta http-equiv="refresh" content="10">-->
+    <title>Covid19 - Anti Fake News</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
+    <!--<script type="text/javascript">   
+       function Redirect() {  window.location="/"; }  
+       setTimeout('Redirect()', 80000);   
+    </script>-->
+  <!--<style>
+    figure {
+      border: 6px transparent solid;
+      padding: 4px;
+      margin: auto;
+    }
+    figcaption {
+      background-color: transparent;
+      color: transparent;
+      font-style: italic;
+      padding: 2px;
+      text-align: center;
+    }
+  </style>-->
+<style>
+.tooltip {
+    position: relative;
+    display: inline-block;
+    /*border-bottom: 1px dotted black;*/
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    /*width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    top: 150%;
+    left: 50%;
+    margin-left: -60px;*/
+}
+
+.tooltip .tooltiptext::after {
+    content: "";
+    /*position: absolute;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent black transparent;*/
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}
+</style>
+</head>
+
+<body>
+   <!-- 
+         este comentario
+         hace que la pag
+         se actualize 
+         automaticamente
+ 
+  <script type="text/javascript">   
+    function Redirect() {  window.location="/"; }  
+    setTimeout('Redirect()', 5000);   
+  </script>
+  -->
+
+    <section class="hero is-dark">
+      <div class="hero-body">
+        <div class="container">
+
+          <h1 class="title is-size-2">
+            Covid19 - Interpretación incorrecta de los datos 
+          </h1>
+
+          <h2 class="subtitle is-size-4">
+            generador infinito de noticias falsas a partir de los <a href="https://sisa.msal.gov.ar/sisa/">datos del gobierno</a>
+          </h2>
+          <p class="is-size-7 is-size-7-mobile">
+          <a class="has-text-white " href="https://github.com/GastonMazzei/covidarg-fake-news/blob/master/README.md">[mas info]</a>
+           </p>
+        </div>
+      </div>
+    </section>
+    <section class="hero is-light">
+      <div class="hero-body">
+        <div class="container is-fluid">
+            
+          <p class="has-text-centered has-text-centered-mobile is-size-4 is-size-4-mobile">
+          <button class="button is-dark" onClick="window.location.reload();">Recalcular</button>
+          <br>
+            Densidad de probabilidad de la probabilidad de tener coronavirus
+	  </p>
+
+           
+          <figure class= "image is-3by1">
+            <img src="static/{{image}}.png"> 
+          </figure>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="hero is-warning">
+      <div class="hero-body">
+        <div class="container">
+          <h2 class="subtitle is-size-5"> 
+            <center>
+            <b>
+           Fake News:
+            </b>
+            </center>
+          </h2>
+          <p class="is-size-4-mobile is-size-4 has-text-weight-semibold is-italic has-text-centered has-text-centered-mobile"> 
+            {{fake_news}}
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="hero is-white">
+      <div class="hero-body">
+        <div class="container">
+        <figure class= "image is-3by1">
+          <img src="static/cuidados.png" alt="Como prevenir el coronavirus">
+        </div>
+      </div>
+    </section>
+
+    <section class="hero is-dark">
+      <div class="hero-body has-text-white">
+           <p>
+           <center>
+           <b>
+            Powered by <a href="https://gastonmazzei.github.io/">Gaston Mazzei</a>
+           </b>
+           </center>
+           </p>
+      </div>
+    </section>
+
+
+  </body>
+</html>
